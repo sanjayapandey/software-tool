@@ -32,7 +32,7 @@
   <div class="login-box-body">
     <p class="login-box-msg"><strong>Sign In</strong></p>
 
-    <form action="/showMessage.html" method="post">	
+    <form action="dashboard" method="post">	
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="User Name">
       </div>
