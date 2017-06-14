@@ -6,11 +6,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login | Software Requirement Tool</title>
+<title>Login | ERP Application</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
+<meta property="og:site_name" content="SoftwareTool">
+<meta property="og:title" content='Login'>
+<meta property="og:description" content="SoftwareTool">
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/bootstrap.min.css"/>'>
 <link rel="stylesheet"
@@ -19,6 +22,7 @@
 	href='<c:url value="/resources/css/ionicons.min.css"/>'>
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/erp.min.css"/>'>
+<link rel="stylesheet" href='<c:url value="/resources/css/custom.css"/>'>
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -27,7 +31,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <b>S/W Requirement</b>Tool
+    <b>Book</b>Store
   </div>
   <div class="login-box-body">
     <p class="login-box-msg"><strong>Sign In</strong></p>
@@ -44,9 +48,9 @@
         <div class="col-xs-4">
           <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
-<!-- 	<div class="col-xs-8"> -->
-<!-- 		<a href="signup.html" class="btn btn-block btn-flat"> Create new account </a> -->
-<!--         </div> -->
+	<div class="col-xs-8">
+		<a href="signup.html" class="btn btn-block btn-flat"> Create new account </a>
+        </div>
       </div>
     </form>
   </div>
