@@ -27,12 +27,12 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <b>S/W Requirement</b>Tool
+    <b>S/W Quality</b>Tool
   </div>
   <div class="login-box-body">
     <p class="login-box-msg"><strong>Sign In</strong></p>
 
-    <form action="dashboard" method="post">	
+    <form action="dashboard" method="get">	
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="User Name">
       </div>

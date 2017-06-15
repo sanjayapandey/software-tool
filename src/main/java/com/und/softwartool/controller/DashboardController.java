@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/dashboard")
 public class DashboardController {
 	private static final Logger LOGGER = LogManager.getLogger(DashboardController.class);
-	@RequestMapping(method= RequestMethod.POST)
+	@RequestMapping(method= RequestMethod.GET)
 	public ModelAndView showDashboard(){
 		LOGGER.info("Inside DashboardController#showDashboard method.");
 		ModelAndView modelAndView = new ModelAndView();
