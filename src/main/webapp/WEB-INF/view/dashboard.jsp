@@ -288,10 +288,6 @@
                                 <li>
                                     <a href="morris.html">USABILITY</a>
                                 </li>
-                                <li>
-                                    <a href="morris.html">TESTABILITY</a>
-                                </li>
-                               
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -366,7 +362,7 @@
 												
 											</div>
 											<div class="col-lg-4">
-												<button type="button" class="btn btn-primary">Create New Project</button>
+												<a href="project/create" class="btn btn-primary">Create New Project</a>
 											</div>
 									    </div>
                                         <table class="table table-bordered table-hover table-striped">
@@ -383,7 +379,9 @@
                                                     <td>001</td>
                                                     <td>Build Software requirement tool </td>
                                                     <td>Active</td>
-                                                    <td> <button type="button" class="btn btn-default">View</button> <button type="button" class="btn btn-default">Edit</button></td>
+                                                    <td> 
+                                                    <a href="project/21" class="btn btn-default">View</a>
+                                                    <button type="button" class="btn btn-default">Edit</button></td>
                                                 </tr>
                                                <tr>
                                                     <td>002</td>
