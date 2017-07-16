@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.und.softwartool.model.FunctionalReq;
 import com.und.softwartool.model.NonFunctionalReq;
 import com.und.softwartool.model.Project;
+import com.und.softwartool.model.SystemConstrain;
 import com.und.softwartool.service.FunctionalReqService;
 import com.und.softwartool.service.NonFunctionalReqService;
 import com.und.softwartool.service.ProjectService;
+import com.und.softwartool.service.SystemConstrainService;
 
 @Controller
 @RequestMapping("/project")
@@ -35,6 +36,8 @@ public class ProjectController {
 	NonFunctionalReqService nonFunctionalReqServiceImpl;
 	@Autowired
 	FunctionalReqService functionalReqServiceImpl;
+	@Autowired
+	SystemConstrainService systemConstrainServiceImpl;
 	
 	@RequestMapping( value="list", method= RequestMethod.GET)
 	public ModelAndView showProjects(){
@@ -93,7 +96,12 @@ public class ProjectController {
 		modelAndView.addObject("functionalReqs", functionalReqs);
 		
 		//for system constraints
-		//TODO
+		SystemConstrain systemConstrain = new SystemConstrain();
+		systemConstrain.setProject(project);
+		List<SystemConstrain> systemConstrains = systemConstrainServiceImpl.findByProject(project);
+		modelAndView.addObject("systemConstrain", systemConstrain);
+		modelAndView.addObject("systemConstrains", systemConstrains);
+		
 		modelAndView.setViewName("create-project2");
 		return modelAndView;
 		
@@ -120,6 +128,18 @@ public class ProjectController {
 		LOGGER.info("saved functional requirement is:"+newFunctionalReq.toString());
 		redirectAttributes.addFlashAttribute("project", newFunctionalReq.getProject());
 		redirectAttributes.addFlashAttribute("success", "Functional requirement saved successfully!");
+		return "redirect:create-step-2";
+	}
+	
+	@RequestMapping(value="/save-system-constrain", method=RequestMethod.POST)
+	public String saveSystemConstrain(@ModelAttribute("systemConstrain") SystemConstrain newSystemConstrain, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId){
+		LOGGER.info("Inside ProjectController#saveSystemConstrain method.");
+		//save project
+		newSystemConstrain.setProject(projectServiceImpl.findById(projectId));
+		systemConstrainServiceImpl.save(newSystemConstrain);
+		LOGGER.info("saved system constrain is:"+newSystemConstrain.toString());
+		redirectAttributes.addFlashAttribute("project", newSystemConstrain.getProject());
+		redirectAttributes.addFlashAttribute("success", "System Constrain saved successfully!");
 		return "redirect:create-step-2";
 	}
 	

@@ -325,31 +325,29 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <form role="form">
+                                    <form:form modelAttribute="systemConstrain" action="save-system-constrain" method="POST">
+                                    <input type="hidden" value="${functionalReq.project.id}" name="projectId"/>
                                     	<div class="form-group">
                                             <label>Software Requirement</label>
-                                            <textarea class="form-control" rows="1"></textarea>
+                                            <form:textarea path="softwareRequirement" class="form-control" rows="1"></form:textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Hardware Requirement</label>
-                                            <textarea class="form-control" rows="1"></textarea>
+                                            <form:textarea path="hardwareRequirement" class="form-control" rows="1"></form:textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Network Requirement</label>
-                                            <textarea class="form-control" rows="1"></textarea>
+                                            <form:textarea path="networkRequirement" class="form-control" rows="1"></form:textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>Any other requirement</label>
-                                            <textarea class="form-control" rows="1"></textarea>
+                                            <form:textarea path="otherRequirement" class="form-control" rows="1"></form:textarea>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Attach file</label>
-                                            <input type="file">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                        <button type="reset" class="btn btn-default">Reset</button>
-										<button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                       
+                                        <form:button type="submit" class="btn btn-primary">Save</form:button>
+                                        <form:button type="reset" class="btn btn-default">Reset</form:button>
+										<form:button type="submit" class="btn btn-danger">Delete</form:button>
+                                    </form:form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-4 pull-right">
@@ -360,24 +358,11 @@
 		                        <!-- /.panel-heading -->
 		                        <div class="panel-body">
 		                            <div class="list-group">
-		                                <a href="#" class="list-group-item">
-		                                    SC-001
-		                                </a>
-		                                <a href="#" class="list-group-item">
-		                                    SC-002
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    SC-003
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    SC-004
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    SC-005
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    SC-006
-		                                </a>
+		                                 <c:forEach items="${systemConstrains}" var="systemConstrain">
+		                            		<a href="#" class="list-group-item">
+		                                    	${systemConstrain.id}
+		                                	</a>
+		                            	</c:forEach>
 		                            </div>
 		                            <!-- /.list-group -->
 <!-- 		                            <a href="#" class="btn btn-default btn-block">View All NFR</a> -->
