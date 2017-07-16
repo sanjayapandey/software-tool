@@ -244,59 +244,46 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
-<%--                                     <form:form> --%>
-<!--                                     	<div class="form-group"> -->
-<!--                                             <label>Name of Requirement</label> -->
-<!--                                             <textarea class="form-control" rows="1"></textarea> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Description</label> -->
-<!--                                             <textarea class="form-control" rows="3"></textarea> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>References</label> -->
-<!--                                             <textarea class="form-control" rows="1"></textarea> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Prerequisites</label> -->
-<!--                                             <textarea class="form-control" rows="1"></textarea> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Relation to Non functional requirement</label> -->
-<!--                                             <select class="form-control"> -->
-<%--                                                 <form:option  value="AVAILABILITY" >AVAILABILITY</form:option> --%>
-<%--                                                 <form:option  value="SECURITY" >SECURITY</form:option> --%>
-<%--                                                 <form:option  value="PERFORMANCE" >PERFORMANCE</form:option> --%>
-<%--                                                 <form:option  value="MODIFIABILITY" >MODIFIABILITY</form:option> --%>
-<%--                                                 <form:option  value="TESTABILITY" >TESTABILITY</form:option> --%>
-<%--                                                 <form:option  value="USABILITY" >USABILITY</form:option> --%>
-<!--                                             </select> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Relation to Functional requirement</label> -->
-<!--                                             <select class="form-control"> -->
-<%--                                                 <form:option>FR-01</form:option> --%>
-<%--                                                 <form:option>FR-02</form:option> --%>
-<%--                                                 <form:option>FR-03</form:option> --%>
-<%--                                                 <form:option>FR-04</form:option> --%>
-<!--                                             </select> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Type of requirement</label> -->
-<!--                                             <select class="form-control"> -->
-<%--                                                 <form:option>Functional</form:option> --%>
-<%--                                                 <form:option>User Interface</form:option> --%>
-<%--                                                 <form:option>Other</form:option> --%>
-<!--                                             </select> -->
-<!--                                         </div> -->
-<!--                                         <div class="form-group"> -->
-<!--                                             <label>Attach file</label> -->
-<!--                                             <input type="file"> -->
-<!--                                         </div> -->
-<!--                                         <button type="submit" class="btn btn-primary">Save</button> -->
-<!--                                         <button type="reset" class="btn btn-default">Reset</button> -->
-<!-- 										<button type="submit" class="btn btn-danger">Delete</button> -->
-<%--                                     </form:form> --%>
+                                    <form:form modelAttribute="functionalReq" action="save-functional-req" method="POST" >
+                                    	<input type="hidden" value="${functionalReq.project.id}" name="projectId"/>
+                                    	<div class="form-group">
+                                            <label>Name of Requirement</label>
+                                            <form:textarea path="name" class="form-control" rows="1"></form:textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <form:textarea path="description" class="form-control" rows="3"></form:textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>References</label>
+                                            <form:textarea path="references" class="form-control" rows="1"></form:textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Prerequisites</label>
+                                            <form:textarea path="prerequisites" class="form-control" rows="1"></form:textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Relation to Non functional requirement</label>
+                                            <form:select path="nonFunctionalReq" class="form-control">
+				                            		<form:options items="${nonFunctionalReqs}"/>
+                                            </form:select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Relation to Functional requirement</label>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type of requirement</label>
+                                            <form:select path="typeOfReq" class="form-control">
+                                                <form:option value="Functional">Functional</form:option>
+                                                <form:option value="User Interface">User Interface</form:option>
+                                                <form:option value="Other">Other</form:option>
+                                            </form:select>
+                                        </div>
+                                        <form:button type="submit" class="btn btn-primary">Save</form:button>
+                                        <form:button type="reset" class="btn btn-default">Reset</form:button>
+										<form:button type="submit" class="btn btn-danger">Delete</form:button>
+                                    </form:form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
                                 <div class="col-lg-4 pull-right">
@@ -307,24 +294,11 @@
 		                        <!-- /.panel-heading -->
 		                        <div class="panel-body">
 		                            <div class="list-group">
-		                                <a href="#" class="list-group-item">
-		                                    FR-001
-		                                </a>
-		                                <a href="#" class="list-group-item">
-		                                    FR-002
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    FR-003
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    FR-004
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    FR-005
-		                                </a>
-		                                 <a href="#" class="list-group-item">
-		                                    FR-006
-		                                </a>
+		                                <c:forEach items="${functionalReqs}" var="functionalReq">
+		                            		<a href="#" class="list-group-item">
+		                                    	${functionalReq.name}
+		                                	</a>
+		                            	</c:forEach>
 		                            </div>
 		                            <!-- /.list-group -->
 <!-- 		                            <a href="#" class="btn btn-default btn-block">View All NFR</a> -->

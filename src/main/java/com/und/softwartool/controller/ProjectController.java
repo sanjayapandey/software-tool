@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.und.softwartool.model.FunctionalReq;
 import com.und.softwartool.model.NonFunctionalReq;
 import com.und.softwartool.model.Project;
+import com.und.softwartool.service.FunctionalReqService;
 import com.und.softwartool.service.NonFunctionalReqService;
 import com.und.softwartool.service.ProjectService;
 
@@ -31,6 +33,8 @@ public class ProjectController {
 	
 	@Autowired
 	NonFunctionalReqService nonFunctionalReqServiceImpl;
+	@Autowired
+	FunctionalReqService functionalReqServiceImpl;
 	
 	@RequestMapping( value="list", method= RequestMethod.GET)
 	public ModelAndView showProjects(){
@@ -74,11 +78,22 @@ public class ProjectController {
 			modelAndView.setViewName("create-project1");
 			return modelAndView;
 		}
+		//for Non functional requirement
 		NonFunctionalReq nonFunctionalReq = new NonFunctionalReq();
 		nonFunctionalReq.setProject(project);
 		List<NonFunctionalReq> nonFunctionalReqs = nonFunctionalReqServiceImpl.findByProject(project);
 		modelAndView.addObject("nonFunctionalReq", nonFunctionalReq);
 		modelAndView.addObject("nonFunctionalReqs", nonFunctionalReqs);
+		
+		//for functional requirement
+		FunctionalReq functionalReq = new FunctionalReq();
+		functionalReq.setProject(project);
+		List<FunctionalReq> functionalReqs = functionalReqServiceImpl.findByProject(project);
+		modelAndView.addObject("functionalReq", functionalReq);
+		modelAndView.addObject("functionalReqs", functionalReqs);
+		
+		//for system constraints
+		//TODO
 		modelAndView.setViewName("create-project2");
 		return modelAndView;
 		
@@ -93,6 +108,18 @@ public class ProjectController {
 		LOGGER.info("saved non functional requirement is:"+newNonFunctionalReq.toString());
 		redirectAttributes.addFlashAttribute("project", newNonFunctionalReq.getProject());
 		redirectAttributes.addFlashAttribute("success", "Non functional requirement saved successfully!");
+		return "redirect:create-step-2";
+	}
+	
+	@RequestMapping(value="/save-functional-req", method=RequestMethod.POST)
+	public String saveFunctionalReq(@ModelAttribute("functionalReq") FunctionalReq newFunctionalReq, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId){
+		LOGGER.info("Inside ProjectController#saveFunctionalReq method.");
+		//save project
+		newFunctionalReq.setProject(projectServiceImpl.findById(projectId));
+		functionalReqServiceImpl.save(newFunctionalReq);
+		LOGGER.info("saved functional requirement is:"+newFunctionalReq.toString());
+		redirectAttributes.addFlashAttribute("project", newFunctionalReq.getProject());
+		redirectAttributes.addFlashAttribute("success", "Functional requirement saved successfully!");
 		return "redirect:create-step-2";
 	}
 	
