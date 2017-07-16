@@ -139,32 +139,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>001</td>
-                                                    <td>Build Software requirement tool </td>
-                                                    <td>Active</td>
-                                                    <td> 
-                                                    <a href="project/21" class="btn btn-default">View</a>
-                                                    <button type="button" class="btn btn-default">Edit</button></td>
-                                                </tr>
-                                               <tr>
-                                                    <td>002</td>
-                                                    <td>Build Software requirement tool </td>
-                                                    <td>Inactive</td>
-                                                    <td> <button type="button" class="btn btn-default">View</button> <button type="button" class="btn btn-default">Edit</button></td>
-                                                </tr>
-                                                 <tr>
-                                                    <td>003</td>
-                                                    <td>Build Software requirement tool </td>
-                                                    <td>Active</td>
-                                                    <td> <button type="button" class="btn btn-default">View</button> <button type="button" class="btn btn-default">Edit</button></td>
-                                                </tr>
-                                               <tr>
-                                                    <td>004</td>
-                                                    <td>Build Software requirement tool </td>
-                                                    <td>Inactive</td>
-                                                    <td> <button type="button" class="btn btn-default">View</button> <button type="button" class="btn btn-default">Edit</button></td>
-                                                </tr>
+                                            	<c:forEach items="${projects}" var="project">
+                                            		<tr>
+	                                                    <td width="10%">${project.id }</td>
+	                                                    <td width="60%"><strong>Name: </strong>${project.name} <br> <strong>Description: </strong> ${project.description}</td>
+	                                                    <td width="10%">Running</td>
+	                                                    <td width="20%"> 
+	                                                    <a href="project/view/${project.id}" class="btn btn-default">View</a>
+	                                                    <a href="project/view/${project.id}" class="btn btn-default">Edit</a>
+                                                	</tr>
+                                            	</c:forEach>
                                                
                                             </tbody>
                                         </table>

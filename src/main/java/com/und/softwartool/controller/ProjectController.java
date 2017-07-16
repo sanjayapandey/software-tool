@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -144,9 +145,14 @@ public class ProjectController {
 	}
 	
 	@RequestMapping( value="/view/{id}", method= RequestMethod.GET)
-	public ModelAndView viewProject(@RequestParam("id") long id){
-		LOGGER.info("Inside ProjectController#viewProject method.");
+	public ModelAndView viewProject(@PathVariable("id") long id){
+		LOGGER.info("Inside ProjectController#viewProject method. Id is:{}",id);
 		ModelAndView modelAndView = new ModelAndView();
+		Project project = projectServiceImpl.findById(id);
+		modelAndView.addObject("project",project);
+		modelAndView.addObject("nonFunctionalReqs", nonFunctionalReqServiceImpl.findByProject(project));
+		modelAndView.addObject("functionalReqs", functionalReqServiceImpl.findByProject(project));
+		modelAndView.addObject("systemConstrains", systemConstrainServiceImpl.findByProject(project));
 		modelAndView.setViewName("view");
 		return modelAndView;
 		
