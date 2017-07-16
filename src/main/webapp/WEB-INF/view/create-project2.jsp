@@ -213,12 +213,11 @@
 		                        <!-- /.panel-heading -->
 		                        <div class="panel-body">
 		                            <div class="list-group">
-		                                <a href="#" class="list-group-item">
-		                                    AVAILABILITY
-		                                </a>
-		                                <a href="#" class="list-group-item">
-		                                    SECURITY
-		                                </a>
+		                            	<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq">
+		                            		<a href="#" class="list-group-item">
+		                                    	${nonFunctionalReq.qualityAttribute}
+		                                	</a>
+		                            	</c:forEach>
 		                            </div>
 		                            <!-- /.list-group -->
 <!-- 		                            <a href="#" class="btn btn-default btn-block">View All NFR</a> -->

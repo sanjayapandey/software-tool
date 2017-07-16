@@ -1,5 +1,7 @@
 package com.und.softwartool.controller;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +76,9 @@ public class ProjectController {
 		}
 		NonFunctionalReq nonFunctionalReq = new NonFunctionalReq();
 		nonFunctionalReq.setProject(project);
+		List<NonFunctionalReq> nonFunctionalReqs = nonFunctionalReqServiceImpl.findByProject(project);
 		modelAndView.addObject("nonFunctionalReq", nonFunctionalReq);
+		modelAndView.addObject("nonFunctionalReqs", nonFunctionalReqs);
 		modelAndView.setViewName("create-project2");
 		return modelAndView;
 		
