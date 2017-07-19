@@ -265,7 +265,10 @@
                                         <div class="form-group">
                                             <label>Relation to Non functional requirement</label>
                                             <form:select path="nonFunctionalReq" class="form-control">
-				                            		<form:options items="${nonFunctionalReqs}"/>
+                                            		<form:option value="" label="--Please Select"/>
+                                            		<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq">
+											            <option <c:if test="${nonFunctionalReq.id eq functionalReq.nonFunctionalReq.id}">selected="selected"</c:if>    value="${nonFunctionalReq.id}">${nonFunctionalReq.qualityAttribute} </option>
+											        </c:forEach>
                                             </form:select>
                                         </div>
                                         <div class="form-group">

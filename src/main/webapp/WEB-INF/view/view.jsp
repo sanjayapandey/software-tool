@@ -179,10 +179,10 @@
                                             	<c:forEach items="${functionalReqs}" var="functionalReq">
                                             		<tr>
 	                                                    <td width="10%">${functionalReq.id }</td>
-	                                                     <td>${functionalReq}
+	                                                     <td>${functionalReq.name}</br>
 	                                                     <c:set var="nonFunctionalReq" value="${functionalReq.nonFunctionalReq}"/> 
-	                                                     <c:if test="${not empty $nonFunctionalReq}"> 
-	                                                     	<button class="btn-small btn-primary">${functionalReq.nonFunctionalReq.qualityAttribute}</button>
+	                                                     <c:if test="${not empty nonFunctionalReq}"> 
+	                                                     	<span class="label label-primary">${functionalReq.nonFunctionalReq.qualityAttribute}</span>
 	                                                      </c:if>
 	                                                     </td>
 	                                                </tr>

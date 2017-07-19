@@ -1,6 +1,9 @@
 package com.und.softwartool.controller;
 
+import java.beans.PropertyEditorSupport;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +44,35 @@ public class ProjectController {
 	FunctionalReqService functionalReqServiceImpl;
 	@Autowired
 	SystemConstrainService systemConstrainServiceImpl;
+	
+	
+	/**
+     * controller binder
+     * 
+     * @param request
+     * @param binder
+     */
+    @InitBinder
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+
+        // business
+        binder.registerCustomEditor(NonFunctionalReq.class, new PropertyEditorSupport() {
+
+            // Converts a String ID to a nonFunctionalReq (when submitting form)
+            @Override
+            public void setAsText(String id) {
+                if (id == null) {
+                    throw new RuntimeException();
+                }
+                NonFunctionalReq nonFunctionalReq = nonFunctionalReqServiceImpl.findById(new Long((String) id));
+                if (nonFunctionalReq == null) {
+                    throw new RuntimeException();
+                }
+                this.setValue(nonFunctionalReq);
+            }
+        });
+    }
+	
 	
 	@RequestMapping( value="/list", method= RequestMethod.GET)
 	public ModelAndView showProjects(){
