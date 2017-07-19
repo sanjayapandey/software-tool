@@ -41,10 +41,10 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="/softwaretool/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="project/list"><i class="fa fa-edit fa-fw"></i> Projects</a>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Projects</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Quality Attributes<span class="fa arrow"></span></a>
@@ -105,12 +105,6 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -126,7 +120,7 @@
 												
 											</div>
 											<div class="col-lg-3">
-												<a href="project/create-step-1" class="btn btn-primary">Create New Project</a>
+												<a href="/softwaretool/project/create-step-1" class="btn btn-primary">Create New Project</a>
 											</div>
 									    </div>
                                         <table class="table table-bordered table-hover table-striped">
@@ -145,8 +139,8 @@
 	                                                    <td width="60%"><strong>Name: </strong>${project.name} <br> <strong>Description: </strong> ${project.description}</td>
 	                                                    <td width="10%">Running</td>
 	                                                    <td width="20%"> 
-	                                                    <a href="project/view/${project.id}" class="btn btn-default">View</a>
-	                                                    <a href="project/edit/${project.id}" class="btn btn-default">Edit</a>
+	                                                    <a href="/softwaretool/project/view/${project.id}" class="btn btn-default">View</a>
+	                                                    <a href="/softwaretool/project/edit/${project.id}" class="btn btn-default">Edit</a>
                                                 	</tr>
                                             	</c:forEach>
                                                

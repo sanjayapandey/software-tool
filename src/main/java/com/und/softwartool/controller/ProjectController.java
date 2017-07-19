@@ -40,13 +40,14 @@ public class ProjectController {
 	@Autowired
 	SystemConstrainService systemConstrainServiceImpl;
 	
-	@RequestMapping( value="list", method= RequestMethod.GET)
+	@RequestMapping( value="/list", method= RequestMethod.GET)
 	public ModelAndView showProjects(){
 		LOGGER.info("Inside ProjectController#showProjects method.");
 		ModelAndView modelAndView = new ModelAndView();
+		List<Project> projects = projectServiceImpl.findAll();
+		modelAndView.addObject("projects", projects);
 		modelAndView.setViewName("projects");
 		return modelAndView;
-		
 	}
 	@RequestMapping( value="/create-step-1", method= RequestMethod.GET)
 	public ModelAndView createProjectStep1(){
@@ -61,13 +62,17 @@ public class ProjectController {
 	
 	@RequestMapping(value="/save-step-1", method=RequestMethod.POST)
 	public String saveProjectStep1(@ModelAttribute("project") Project newProject, BindingResult result, RedirectAttributes redirectAttributes){
-		LOGGER.info("Inside ProjectController#saveProjectStep1 method.");
-		LOGGER.info("Project name is: "+newProject.getName());
+		LOGGER.info("Inside ProjectController#saveProjectStep1 method. Project is:{}", newProject.toString());
+		long id = newProject.getId();
 		//save project
 		projectServiceImpl.save(newProject);
 		LOGGER.info("saved project is:"+newProject.toString());
 		redirectAttributes.addFlashAttribute("project", newProject);
-		redirectAttributes.addFlashAttribute("success", "Project created successfully!");
+		if(id==0){
+			redirectAttributes.addFlashAttribute("success", "Project created successfully!");
+		}else{
+			redirectAttributes.addFlashAttribute("success", "Project edited successfully!");
+		}
 		return "redirect:create-step-2";
 		
 	}
@@ -142,6 +147,15 @@ public class ProjectController {
 		redirectAttributes.addFlashAttribute("project", newSystemConstrain.getProject());
 		redirectAttributes.addFlashAttribute("success", "System Constrain saved successfully!");
 		return "redirect:create-step-2";
+	}
+	
+	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+	public ModelAndView editProject(@PathVariable("id") long id, ModelAndView modelAndView ){
+		LOGGER.info("Inside ProjectController#editProject method.");
+		Project project = projectServiceImpl.findById(id);
+		modelAndView.addObject("project", project);
+		modelAndView.setViewName("create-project1");
+		return modelAndView;
 	}
 	
 	@RequestMapping( value="/view/{id}", method= RequestMethod.GET)

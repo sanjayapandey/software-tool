@@ -106,7 +106,7 @@
 		                                            <input class="form-control date" id="end" name="end" type="text" value="${endDate}"/>
 		                                        </div>
 		                                     </div>
-		                                     <div class="col-lg-6">
+		                                     <div class="col-lg-12">
 		                                        <div class="form-group">
 		                                            <label>Description</label>
 		                                            <textarea class="form-control" rows="2">${project.description}</textarea>
@@ -179,7 +179,12 @@
                                             	<c:forEach items="${functionalReqs}" var="functionalReq">
                                             		<tr>
 	                                                    <td width="10%">${functionalReq.id }</td>
-	                                                     <td >${functionalReq}</td>
+	                                                     <td>${functionalReq}
+	                                                     <c:set var="nonFunctionalReq" value="${functionalReq.nonFunctionalReq}"/> 
+	                                                     <c:if test="${not empty $nonFunctionalReq}"> 
+	                                                     	<button class="btn-small btn-primary">${functionalReq.nonFunctionalReq.qualityAttribute}</button>
+	                                                      </c:if>
+	                                                     </td>
 	                                                </tr>
 				                            	</c:forEach>
                                             </tbody>
@@ -217,7 +222,11 @@
                                             	<c:forEach items="${systemConstrains}" var="systemConstrain">
                                             		<tr>
 	                                                    <td width="10%">${systemConstrain.id }</td>
-	                                                     <td >${systemConstrain}</td>
+	                                                     <td ><strong>Software Requirement: </strong>${systemConstrain.softwareRequirement}<br>
+	                                                     	  <strong>Hardware Requirement: </strong>${systemConstrain.hardwareRequirement}<br>
+	                                                     	  <strong>Network Requirement: </strong>${systemConstrain.networkRequirement}<br>
+	                                                     	  <strong>Other Requirement: </strong>${systemConstrain.otherRequirement}
+	                                                     </td>
 	                                                </tr>
 				                            	</c:forEach>
                                             </tbody>

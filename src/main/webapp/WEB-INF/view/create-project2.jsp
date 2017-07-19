@@ -111,7 +111,7 @@
 		                                            <input class="form-control date" id="end" name="end" type="text" value="${endDate}"/>
 		                                        </div>
 		                                     </div>
-		                                     <div class="col-lg-6">
+		                                     <div class="col-lg-12">
 		                                        <div class="form-group">
 		                                            <label>Description</label>
 		                                            <textarea class="form-control" rows="2">${project.description}</textarea>

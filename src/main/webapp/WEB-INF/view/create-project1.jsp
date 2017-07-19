@@ -85,9 +85,10 @@
                     <h4 class="page-header">Create Project</h4>
                     <div class="row">
                                 <div class="col-lg-6">
-                                    <form:form modelAttribute="project" method="post" action="save-step-1">
+                                    <form:form modelAttribute="project" method="post" action="/softwaretool/project/save-step-1">
                                         <div class="form-group">
                                         	<form:textarea path="name" class="form-control" rows="1"  placeholder="Name of Project"></form:textarea>
+                                        	<form:hidden path="id" value="${project.id}"/>
                                         </div>
                                         <div class="row">
                                 			<div class="col-lg-6">
