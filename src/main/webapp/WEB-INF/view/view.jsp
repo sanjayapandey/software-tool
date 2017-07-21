@@ -86,7 +86,9 @@
            <div class="row">
                 <div class="col-lg-12">
                     <h4 class="page-header">View Project</h4>
+                    
                     <div class="row">
+                    			<div class="col-lg-2 pull-right"><a href="/softwaretool/project/edit/${project.id}" class="btn btn-primary">Edit Project</a></div>
                                 <div class="col-lg-6">
                                     <form>
                                         <div class="form-group">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class NonFunctionalReqServiceImpl implements NonFunctionalReqService{
 		return nonFunctionalReqRepository.findByProject(project);
 	}
 
-	public NonFunctionalReq save(NonFunctionalReq nonFunctionalReq) {
+	public NonFunctionalReq save(NonFunctionalReq nonFunctionalReq) throws ConstraintViolationException  {
 		LOGGER.info("Inside NonFunctionalReqServiceImpl#save method. Req is: {}",nonFunctionalReq.toString());
 		return nonFunctionalReqRepository.save(nonFunctionalReq);
 	}

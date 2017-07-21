@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -164,10 +166,18 @@ public class ProjectController {
 		}
 		newNonFunctionalReq.setCounter(counter+1);
 		newNonFunctionalReq.setKey("NFR_"+newNonFunctionalReq.getCounter());
-		nonFunctionalReqServiceImpl.save(newNonFunctionalReq);
+		try{
+			nonFunctionalReqServiceImpl.save(newNonFunctionalReq);
+			redirectAttributes.addFlashAttribute("success", "Non functional requirement saved successfully!");
+		}catch(DataIntegrityViolationException e){
+			redirectAttributes.addFlashAttribute("error", "Quality attribute should be unique!");
+		}catch(Exception e1){
+			LOGGER.error("Error while saving: Error is: {}",e1);
+			redirectAttributes.addFlashAttribute("error", "Error while saving non functional requirement!");
+		}
 		LOGGER.info("saved non functional requirement is:"+newNonFunctionalReq.toString());
 		redirectAttributes.addFlashAttribute("project", newNonFunctionalReq.getProject());
-		redirectAttributes.addFlashAttribute("success", "Non functional requirement saved successfully!");
+		
 		return "redirect:create-step-2";
 	}
 	
