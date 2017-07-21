@@ -141,6 +141,9 @@
                                 <div class="col-lg-6">
                                     <form:form modelAttribute="nonFunctionalReq" method="POST" action="save-step-2">
                                         <input type="hidden" value="${nonFunctionalReq.project.id}" name="projectId"/>
+                                        <form:hidden path="id" value="${nonFunctionalReq.id}" id="nonFunctionalReqId"/>
+                                        <form:hidden path="counter" value="${nonFunctionalReq.counter}"/>
+                                        <form:hidden path="key" value="${nonFunctionalReq.key}"/>
                                         <div class="form-group">
                                             <label>Quality Attribute</label>
                                             <form:select class="form-control" path="qualityAttribute">
@@ -218,8 +221,8 @@
 		                        <!-- /.panel-heading -->
 		                        <div class="panel-body">
 		                            <div class="list-group">
-		                            	<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq">
-		                            		<a href="#" class="list-group-item">
+		                            	<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq" >
+		                            		<a class="list-group-item" onclick="return editNonFunctionalReq(${nonFunctionalReq.id})">
 		                                    	${nonFunctionalReq.qualityAttribute}
 		                                	</a>
 		                            	</c:forEach>
@@ -395,6 +398,31 @@
             </div>
     </div>
    </div>
+   <script type="text/javascript">
+	 function editNonFunctionalReq(id){
+	 $.ajax({
+		    url : '/softwaretool/project/getNonFunctionalReq/'+id,
+		    type : 'GET',
+		    dataType:'json',
+		    success : function(data) {         
+		    	$('#nonFunctionalReqId').val(data.id);
+		    	$('[name="counter"]').val(data.counter);
+		    	$('[name="key"]').val(data.key);
+		        $('[name="qualityAttribute"]').val(data.qualityAttribute);
+		        $('[name="source"]').val(data.source);
+		        $('[name="stimulus"]').val(data.stimulus);
+		        $('[name="environment"]').val(data.environment);
+		        $('[name="response"]').val(data.response);
+		        $('[name="measure"]').val(data.measure);
+		        $('[name="description"]').val(data.description);
+		    },
+		    error : function(request,error)
+		    {
+		        console.log("Request: "+JSON.stringify(request));
+		    }
+		});
+	 }
+   </script>
     <!-- /#wrapper -->
 <jsp:include page="footer.jsp"/>]
 </body>

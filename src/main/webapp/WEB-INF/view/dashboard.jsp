@@ -145,8 +145,8 @@
 	                                                    <td width="60%"><strong>Name: </strong>${project.name} <br> <strong>Description: </strong> ${project.description}</td>
 	                                                    <td width="10%">Running</td>
 	                                                    <td width="20%"> 
-	                                                    <a href="project/view/${project.id}" class="btn btn-primary">View</a>
-	                                                    <a href="project/edit/${project.id}" class="btn btn-primary">Edit</a>
+	                                                    <a href="project/view/${project.id}" class="btn btn-info">View</a>
+	                                                    <a href="project/edit/${project.id}" class="btn btn-info">Edit</a>
                                                 	</tr>
                                             	</c:forEach>
                                                

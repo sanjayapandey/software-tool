@@ -1,6 +1,7 @@
 package com.und.softwartool.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -118,10 +123,13 @@ public class ProjectController {
 	}
 	
 	@RequestMapping( value="/create-step-2", method= RequestMethod.GET)
-	public ModelAndView createProjectStep2(@ModelAttribute("project") Project project, RedirectAttributes redirectAttributes, Model model){
+	public ModelAndView createProjectStep2(@ModelAttribute("project") Project project, RedirectAttributes redirectAttributes, Model model, @RequestParam(name="edit", required=false) String edit, @RequestParam(name="id", defaultValue = "0") Long nonFunctionalReqId, @RequestParam(name="projectId", defaultValue = "0") Long projectId){
 		LOGGER.info("Inside ProjectController#createProjectStep2 method.");
 		ModelAndView modelAndView = new ModelAndView();
-		if(project == null){
+		if(projectId!=0){
+			project = projectServiceImpl.findById(projectId);
+			modelAndView.addObject("project", project);
+		}else if(project == null){
 			project = new Project();
 			modelAndView.addObject("project", project);
 			modelAndView.setViewName("create-project1");
@@ -155,20 +163,29 @@ public class ProjectController {
 	
 	@RequestMapping(value="/save-step-2", method=RequestMethod.POST)
 	public String saveProjectStep2(@ModelAttribute("nonFunctionalReq") NonFunctionalReq newNonFunctionalReq, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId){
-		LOGGER.info("Inside ProjectController#saveProjectStep2 method.");
+		LOGGER.info("Inside ProjectController#saveProjectStep2 method. newNonFunctionalReq is: {}",newNonFunctionalReq.toString());
 		//save project
+		boolean edit = false;
 		newNonFunctionalReq.setProject(projectServiceImpl.findById(projectId));
-		long counter = 0;
-		try{
-		counter = nonFunctionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
-		}catch(Exception e){
-			LOGGER.error("Error is:{}",e);
+		if(newNonFunctionalReq.getId()==0){
+			long counter = 0;
+			try{
+			counter = nonFunctionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
+			}catch(Exception e){
+				LOGGER.error("Error is:{}",e);
+			}
+			newNonFunctionalReq.setCounter(counter+1);
+			newNonFunctionalReq.setKey("NFR_"+newNonFunctionalReq.getCounter());
+		}else{
+			edit=true;
 		}
-		newNonFunctionalReq.setCounter(counter+1);
-		newNonFunctionalReq.setKey("NFR_"+newNonFunctionalReq.getCounter());
 		try{
 			nonFunctionalReqServiceImpl.save(newNonFunctionalReq);
-			redirectAttributes.addFlashAttribute("success", "Non functional requirement saved successfully!");
+			if(edit){
+				redirectAttributes.addFlashAttribute("success", "Non functional requirement edited successfully!");
+			}else{
+				redirectAttributes.addFlashAttribute("success", "Non functional requirement saved successfully!");
+			}
 		}catch(DataIntegrityViolationException e){
 			redirectAttributes.addFlashAttribute("error", "Quality attribute should be unique!");
 		}catch(Exception e1){
@@ -270,5 +287,26 @@ public class ProjectController {
 		modelAndView.setViewName("view");
 		return modelAndView;
 		
+	}
+	
+	@RequestMapping( value="/getNonFunctionalReq/{id}", method= RequestMethod.GET)
+	@ResponseBody
+	public String getNonFunctionalReq(@PathVariable("id") long id){
+		LOGGER.info("Inside ProjectController#getNonFunctionalReq method. Id is:{}",id);
+		NonFunctionalReq nonFunctionalReq = nonFunctionalReqServiceImpl.findById(id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(nonFunctionalReq);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 }
