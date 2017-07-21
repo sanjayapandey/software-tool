@@ -16,6 +16,12 @@ public class FunctionalReq {
 	@Id @GeneratedValue
 	private long id;
 	
+	@Column(name="reference_key")
+	private String key;
+	
+	@Column(name="counter")
+	private long counter;
+	
 	@ManyToOne
 	@JoinColumn(name="project_id")
 	private Project project;
@@ -52,6 +58,22 @@ public class FunctionalReq {
 
 	public Project getProject() {
 		return project;
+	}
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public long getCounter() {
+		return counter;
+	}
+
+	public void setCounter(long counter) {
+		this.counter = counter;
 	}
 
 	public void setProject(Project project) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.und.softwartool.model.FunctionalReq;
+import com.und.softwartool.model.NonFunctionalReq;
 import com.und.softwartool.model.Project;
 import com.und.softwartool.repository.FunctionalReqRepository;
 import com.und.softwartool.service.FunctionalReqService;
@@ -18,21 +19,30 @@ public class FunctionalReqServiceImpl implements FunctionalReqService{
 	private static final Logger LOGGER = LogManager.getLogger(FunctionalReqServiceImpl.class);
 	
 	@Autowired
-	FunctionalReqRepository FunctionalReqRepository;
+	FunctionalReqRepository functionalReqRepository;
 
 	
 	
 	public FunctionalReq findById(long id) {
-		return FunctionalReqRepository.findById(id);
+		return functionalReqRepository.findById(id);
 	}
 
 	public List<FunctionalReq> findByProject(Project project) {
-		return FunctionalReqRepository.findByProject(project);
+		return functionalReqRepository.findByProject(project);
 	}
 
 	public FunctionalReq save(FunctionalReq FunctionalReq) {
 		LOGGER.info("Inside FunctionalReqServiceImpl#save method. Req is: {}",FunctionalReq.toString());
-		return FunctionalReqRepository.save(FunctionalReq);
+		return functionalReqRepository.save(FunctionalReq);
+	}
+
+	public long findMaximumCounter(Project project) {
+		return functionalReqRepository.findMaximumCounter(project);
+	}
+
+	public List<FunctionalReq> findByNonFunctionalReqAndProject(
+			NonFunctionalReq nonFunctionalReq, Project project) {
+		return functionalReqRepository.findByNonFunctionalReqAndProject(nonFunctionalReq, project);
 	}
 	
 }

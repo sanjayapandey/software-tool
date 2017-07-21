@@ -273,7 +273,12 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Relation to Functional requirement</label>
-                                            
+                                            <select name="relatedFunctionalReq">
+                                            	<option value="0" label="--- Select ---"/>
+                                            	 <c:forEach items="${functionalReqs}" var="functionalReq">
+                                            	 	<option value="${functionalReq.id}" label="${functionalReq.name}"/>
+				                            	</c:forEach>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Type of requirement</label>

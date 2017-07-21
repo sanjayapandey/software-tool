@@ -34,5 +34,9 @@ public class NonFunctionalReqServiceImpl implements NonFunctionalReqService{
 		LOGGER.info("Inside NonFunctionalReqServiceImpl#save method. Req is: {}",nonFunctionalReq.toString());
 		return nonFunctionalReqRepository.save(nonFunctionalReq);
 	}
+
+	public long findMaximumCounter(Project project) {
+		return nonFunctionalReqRepository.findMaximumCounter(project);
+	}
 	
 }

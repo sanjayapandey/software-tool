@@ -1,6 +1,7 @@
 package com.und.softwartool.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,10 +25,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.und.softwartool.model.FunctionalReq;
 import com.und.softwartool.model.NonFunctionalReq;
 import com.und.softwartool.model.Project;
+import com.und.softwartool.model.RelationOfRequirement;
 import com.und.softwartool.model.SystemConstrain;
 import com.und.softwartool.service.FunctionalReqService;
 import com.und.softwartool.service.NonFunctionalReqService;
 import com.und.softwartool.service.ProjectService;
+import com.und.softwartool.service.RelationOfRequirementService;
 import com.und.softwartool.service.SystemConstrainService;
 
 @Controller
@@ -44,7 +47,8 @@ public class ProjectController {
 	FunctionalReqService functionalReqServiceImpl;
 	@Autowired
 	SystemConstrainService systemConstrainServiceImpl;
-	
+	@Autowired
+	RelationOfRequirementService relationOfRequirementServiceImpl;
 	
 	/**
      * controller binder
@@ -152,6 +156,14 @@ public class ProjectController {
 		LOGGER.info("Inside ProjectController#saveProjectStep2 method.");
 		//save project
 		newNonFunctionalReq.setProject(projectServiceImpl.findById(projectId));
+		long counter = 0;
+		try{
+		counter = nonFunctionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
+		}catch(Exception e){
+			LOGGER.error("Error is:{}",e);
+		}
+		newNonFunctionalReq.setCounter(counter+1);
+		newNonFunctionalReq.setKey("NFR_"+newNonFunctionalReq.getCounter());
 		nonFunctionalReqServiceImpl.save(newNonFunctionalReq);
 		LOGGER.info("saved non functional requirement is:"+newNonFunctionalReq.toString());
 		redirectAttributes.addFlashAttribute("project", newNonFunctionalReq.getProject());
@@ -160,12 +172,30 @@ public class ProjectController {
 	}
 	
 	@RequestMapping(value="/save-functional-req", method=RequestMethod.POST)
-	public String saveFunctionalReq(@ModelAttribute("functionalReq") FunctionalReq newFunctionalReq, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId){
+	public String saveFunctionalReq(@ModelAttribute("functionalReq") FunctionalReq newFunctionalReq, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId, @RequestParam("relatedFunctionalReq") long relatedFunctionalReqId){
 		LOGGER.info("Inside ProjectController#saveFunctionalReq method.");
 		//save project
 		newFunctionalReq.setProject(projectServiceImpl.findById(projectId));
+		
+
+		long counter = 0;
+		try{
+		counter = functionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
+		}catch(Exception e){
+			LOGGER.error("Error is:{}",e);
+		}
+		newFunctionalReq.setCounter(counter+1);
+		newFunctionalReq.setKey("FR_"+newFunctionalReq.getCounter());
+		
 		functionalReqServiceImpl.save(newFunctionalReq);
 		LOGGER.info("saved functional requirement is:"+newFunctionalReq.toString());
+		//save relation with other requirements
+		RelationOfRequirement relationOfRequirement = new RelationOfRequirement();
+		relationOfRequirement.setFunctionalReqId(newFunctionalReq.getId());
+		relationOfRequirement.setRelatedFunctionalReqId(relatedFunctionalReqId);
+		relationOfRequirement.setProject(newFunctionalReq.getProject());
+		relationOfRequirementServiceImpl.save(relationOfRequirement);
+		LOGGER.info("Relation with other requirement saved: {}",relationOfRequirement.toString());
 		redirectAttributes.addFlashAttribute("project", newFunctionalReq.getProject());
 		redirectAttributes.addFlashAttribute("success", "Functional requirement saved successfully!");
 		return "redirect:create-step-2";
@@ -176,6 +206,16 @@ public class ProjectController {
 		LOGGER.info("Inside ProjectController#saveSystemConstrain method.");
 		//save project
 		newSystemConstrain.setProject(projectServiceImpl.findById(projectId));
+		
+		long counter = 0;
+		try{
+		counter = systemConstrainServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
+		}catch(Exception e){
+			LOGGER.error("Error is:{}",e);
+		}
+		newSystemConstrain.setCounter(counter+1);
+		newSystemConstrain.setKey("SC_"+newSystemConstrain.getCounter());
+		
 		systemConstrainServiceImpl.save(newSystemConstrain);
 		LOGGER.info("saved system constrain is:"+newSystemConstrain.toString());
 		redirectAttributes.addFlashAttribute("project", newSystemConstrain.getProject());
@@ -201,6 +241,22 @@ public class ProjectController {
 		modelAndView.addObject("nonFunctionalReqs", nonFunctionalReqServiceImpl.findByProject(project));
 		modelAndView.addObject("functionalReqs", functionalReqServiceImpl.findByProject(project));
 		modelAndView.addObject("systemConstrains", systemConstrainServiceImpl.findByProject(project));
+		//create relation object
+		List<RelationOfRequirement> relationOfRequirements = relationOfRequirementServiceImpl.getByProject(project);
+		HashMap<Long, String> mapOfRelatedFR = new HashMap<Long, String>();
+		for(RelationOfRequirement relationOfRequirement:relationOfRequirements){
+			long functionalReqId = relationOfRequirement.getFunctionalReqId();
+			long relatedFunReqId = relationOfRequirement.getRelatedFunctionalReqId();
+			try{
+			FunctionalReq functionalReq =  functionalReqServiceImpl.findById(relatedFunReqId);
+			if(null != functionalReq){
+				mapOfRelatedFR.put(functionalReqId, functionalReqServiceImpl.findById(relatedFunReqId).getKey());
+			}
+			}catch(Exception e){
+				LOGGER.error("Error is:{}",e);
+			}
+		}
+		modelAndView.addObject("mapOfRelatedFR", mapOfRelatedFR);
 		modelAndView.setViewName("view");
 		return modelAndView;
 		

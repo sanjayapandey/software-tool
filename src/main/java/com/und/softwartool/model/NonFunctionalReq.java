@@ -16,6 +16,12 @@ public class NonFunctionalReq {
 	@Id @GeneratedValue
 	private long id;
 	
+	@Column(name="reference_key")
+	private String key;
+	
+	@Column(name="counter")
+	private long counter;
+	
 	@ManyToOne
 	@JoinColumn(name="project_id")
 	private Project project;
@@ -49,6 +55,22 @@ public class NonFunctionalReq {
 		this.id = id;
 	}
 
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public long getCounter() {
+		return counter;
+	}
+
+	public void setCounter(long counter) {
+		this.counter = counter;
+	}
+	
 	public Project getProject() {
 		return project;
 	}
@@ -115,11 +137,11 @@ public class NonFunctionalReq {
 
 	@Override
 	public String toString() {
-		return "NonFunctionalReq [id=" + id + ", project=" + project
-				+ ", qualityAttribute=" + qualityAttribute + ", source="
-				+ source + ", stimulus=" + stimulus + ", environment="
-				+ environment + ", response=" + response + ", measure="
-				+ measure + ", description=" + description + "]";
+		return "NonFunctionalReq [id=" + id + ", key=" + key + ", project="
+				+ project + ", qualityAttribute=" + qualityAttribute
+				+ ", source=" + source + ", stimulus=" + stimulus
+				+ ", environment=" + environment + ", response=" + response
+				+ ", measure=" + measure + ", description=" + description + "]";
 	}
-	
-}
+
+	}

@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+<%@ page import="com.und.softwartool.service.RelationOfRequirementService" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -140,8 +141,13 @@
                                             <tbody>
                                             	<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq">
                                             		<tr>
-	                                                    <td width="10%">${nonFunctionalReq.id }</td>
-	                                                     <td >${nonFunctionalReq.qualityAttribute}</td>
+	                                                    <td width="10%">${nonFunctionalReq.key }</td>
+	                                                     <td >${nonFunctionalReq.qualityAttribute}<br>
+	                                                     	<c:forEach items="${functionalReqs}" var="functionalReq">
+	                                                   			<c:if test="${ nonFunctionalReq.id eq functionalReq.nonFunctionalReq.id}">
+	                                                   				<span class="label label-info"><c:out value="${functionalReq.key}"/></span>
+	                                                   			</c:if>
+	                                                    	</c:forEach>
 	                                                </tr>
 				                            	</c:forEach>
                                             </tbody>
@@ -178,12 +184,19 @@
                                             <tbody>
                                             	<c:forEach items="${functionalReqs}" var="functionalReq">
                                             		<tr>
-	                                                    <td width="10%">${functionalReq.id }</td>
-	                                                     <td>${functionalReq.name}</br>
+	                                                    <td width="10%">${functionalReq.key }</td>
+	                                                    <c:set var="funReqId" value="${functionalReq.id }"/>
+	                                                     <td>${functionalReq.name}<br>
 	                                                     <c:set var="nonFunctionalReq" value="${functionalReq.nonFunctionalReq}"/> 
 	                                                     <c:if test="${not empty nonFunctionalReq}"> 
-	                                                     	<span class="label label-primary">${functionalReq.nonFunctionalReq.qualityAttribute}</span>
+	                                                     	<span class="label label-primary">${functionalReq.nonFunctionalReq.qualityAttribute}</span><br>
 	                                                      </c:if>
+	                                                      
+	                                                  	<c:forEach var="entry" items="${mapOfRelatedFR}">
+	                                                  		<c:if test="${entry.key eq functionalReq.id}">
+	                                                  			<span class="label label-info"><c:out value="${entry.value}"/></span>
+	                                                  		</c:if>
+														</c:forEach>
 	                                                     </td>
 	                                                </tr>
 				                            	</c:forEach>
@@ -221,7 +234,7 @@
                                             <tbody>
                                             	<c:forEach items="${systemConstrains}" var="systemConstrain">
                                             		<tr>
-	                                                    <td width="10%">${systemConstrain.id }</td>
+	                                                    <td width="10%">${systemConstrain.key }</td>
 	                                                     <td ><strong>Software Requirement: </strong>${systemConstrain.softwareRequirement}<br>
 	                                                     	  <strong>Hardware Requirement: </strong>${systemConstrain.hardwareRequirement}<br>
 	                                                     	  <strong>Network Requirement: </strong>${systemConstrain.networkRequirement}<br>

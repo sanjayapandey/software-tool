@@ -34,5 +34,9 @@ public class SystemConstrainServiceImpl implements SystemConstrainService{
 		LOGGER.info("Inside SystemConstrainServiceImpl#save method. Req is: {}",systemConstrain.toString());
 		return systemConstrainRepository.save(systemConstrain);
 	}
+
+	public long findMaximumCounter(Project project) {
+		return systemConstrainRepository.findMaximumCounter(project);
+	}
 	
 }

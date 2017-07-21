@@ -16,6 +16,12 @@ public class SystemConstrain {
 	@Id @GeneratedValue
 	private long id;
 	
+	@Column(name="reference_key")
+	private String key;
+	
+	@Column(name="counter")
+	private long counter;
+	
 	@ManyToOne
 	@JoinColumn(name="project_id")
 	private Project project;
@@ -43,6 +49,24 @@ public class SystemConstrain {
 		this.id = id;
 	}
 
+	public String getKey() {
+		return key;
+	}
+
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+
+	public long getCounter() {
+		return counter;
+	}
+
+
+	public void setCounter(long counter) {
+		this.counter = counter;
+	}
 
 	public Project getProject() {
 		return project;

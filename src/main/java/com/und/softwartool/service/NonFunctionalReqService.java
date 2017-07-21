@@ -9,4 +9,5 @@ public interface NonFunctionalReqService {
 	public NonFunctionalReq findById(long id);
 	public List<NonFunctionalReq> findByProject(Project project);
 	public NonFunctionalReq save(NonFunctionalReq nonFunctionalReq);
+	public long findMaximumCounter(Project project);
 }

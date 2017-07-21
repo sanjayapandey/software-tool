@@ -9,4 +9,5 @@ public interface SystemConstrainService {
 	public SystemConstrain findById(long id);
 	public List<SystemConstrain> findByProject(Project project);
 	public SystemConstrain save(SystemConstrain systemConstrain);
+	public long findMaximumCounter(Project project);
 }
