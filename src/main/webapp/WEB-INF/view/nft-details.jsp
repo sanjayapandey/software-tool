@@ -109,6 +109,7 @@
                                                 <tr>
                                                     <th>Id</th>
                                                     <th>Name</th>
+                                                    <th>Description</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,13 +117,14 @@
                                             		<tr>
 	                                                    <td width="10%">${functionalReq.key }</td>
 	                                                    <c:set var="funReqId" value="${functionalReq.id }"/>
-	                                                     <td>${functionalReq.name}<br>
+	                                                     <td width="30%">${functionalReq.name}<br>
 	                                                  	<c:forEach var="entry" items="${mapOfRelatedFR}">
 	                                                  		<c:if test="${entry.key eq functionalReq.id}">
 	                                                  			<span class="label label-info"><c:out value="${entry.value}"/></span>
 	                                                  		</c:if>
 														</c:forEach>
 	                                                     </td>
+	                                                     <td>${functionalReq.description}</td>
 	                                                </tr>
 				                            	</c:forEach>
                                             </tbody>
