@@ -22,6 +22,8 @@
     <!-- Morris Charts CSS -->
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/font-awesome.min.css"/>'>
+	<link rel="stylesheet"
+	href='<c:url value="/resources/css/jquery.sweet-modal.min.css"/>'>
     <!-- Custom Fonts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

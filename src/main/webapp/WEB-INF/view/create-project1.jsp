@@ -22,6 +22,8 @@
     <!-- Morris Charts CSS -->
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/font-awesome.min.css"/>'>
+	<link rel="stylesheet"
+	href='<c:url value="/resources/css/jquery.sweet-modal.min.css"/>'>
     <!-- Custom Fonts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -111,7 +113,8 @@
 		                                
 		                                <button type="submit" class="btn btn-primary">Save and Next</button>
                                         <button type="reset" class="btn btn-default">Reset</button>
-										<button type="submit" class="btn btn-danger">Delete</button>
+                                        <a class="btn btn-danger" onclick="return deleteProject(${project.id})">Delete</a>
+                                        <a href="/softwaretool/dashboard" class="btn btn-primary">Back to Dashboard</a>
                                   	</form:form>
                                   </div>
                      </div>
@@ -121,6 +124,30 @@
             <!-- /.row -->
         </div>
      </div>
+     <script type="text/javascript">
+		function deleteProject(id){
+			$.sweetModal.confirm('Delete the project?', 'Are you sure you want to delete this project?', function() {
+				$.ajax({
+				    url : '/softwaretool/project/delete/'+id,
+				    type : 'PUT',
+				    success : function(data) {  
+					    if(data=="success"){    
+					    	$.sweetModal('Project is deactivated! you can activate later!!'); 
+				    		window.location.href = '/softwaretool/project/list'; 
+					    }else{
+					    	$.sweetModal("error, try again!");	
+							
+						 }
+				    },
+				    error : function(request,error){
+				        console.log("Request: "+JSON.stringify(request));
+				    }
+				});
+			}, function() {
+				//$.sweetModal('You declined. That\'s okay!');
+			});
+		}
+   </script>
     <jsp:include page="footer.jsp"/>
 
 </body>

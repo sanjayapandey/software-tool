@@ -25,7 +25,7 @@ public class DashboardController {
 	public ModelAndView showDashboard(){
 		LOGGER.info("Inside DashboardController#showDashboard method.");
 		ModelAndView modelAndView = new ModelAndView();
-		List<Project> projects = projectServiceImpl.findAll();
+		List<Project> projects = projectServiceImpl.findByStatus(true);
 		modelAndView.addObject("projects", projects);
 		modelAndView.setViewName("dashboard");
 		return modelAndView;

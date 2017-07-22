@@ -31,6 +31,9 @@ public class Project {
 	
 	@Column(name="description")
 	private String description;
+	
+	@Column(name="status")
+	private boolean status;
 
 	public long getId() {
 		return id;
@@ -70,6 +73,14 @@ public class Project {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 	@Override

@@ -14,4 +14,5 @@ public interface ProjectRepository extends CrudRepository<Project, Long>{
 	public Project save(Project project);
 	public void delete(Project project);
 	public List<Project> findAll();
+	public List<Project> findByStatus(boolean status);
 }

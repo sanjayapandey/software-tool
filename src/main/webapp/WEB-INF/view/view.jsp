@@ -24,6 +24,8 @@
     <!-- Morris Charts CSS -->
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/font-awesome.min.css"/>'>
+	<link rel="stylesheet"
+	href='<c:url value="/resources/css/jquery.sweet-modal.min.css"/>'>
     <!-- Custom Fonts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -88,7 +90,11 @@
                     <h4 class="page-header">View Project</h4>
                     
                     <div class="row">
-                    			<div class="col-lg-2 pull-right"><a href="/softwaretool/project/edit/${project.id}" class="btn btn-primary">Edit Project</a></div>
+                    			<div class="col-lg-4 pull-right">
+                    			<a href="/softwaretool/project/edit/${project.id}" class="btn btn-primary">Edit Project</a>
+                    			 <a class="btn btn-danger" onclick="return deleteProject(${project.id})">Delete Project</a>
+                    			<br>
+                    			</div>
                                 <div class="col-lg-6">
                                     <form>
                                         <div class="form-group">
@@ -144,7 +150,7 @@
                                             	<c:forEach items="${nonFunctionalReqs}" var="nonFunctionalReq">
                                             		<tr>
 	                                                    <td width="10%">${nonFunctionalReq.key }</td>
-	                                                     <td >${nonFunctionalReq.qualityAttribute}<br>
+	                                                     <td ><a href="/softwaretool/project/non-functional-req/${nonFunctionalReq.id}" >${nonFunctionalReq.qualityAttribute}</a><br>
 	                                                     	<c:forEach items="${functionalReqs}" var="functionalReq">
 	                                                   			<c:if test="${ nonFunctionalReq.id eq functionalReq.nonFunctionalReq.id}">
 	                                                   				<span class="label label-info"><c:out value="${functionalReq.key}"/></span>
@@ -260,6 +266,30 @@
             </div>
     </div>
    </div>
+   <script type="text/javascript">
+		function deleteProject(id){
+			$.sweetModal.confirm('Delete the project?', 'Are you sure you want to delete this project?', function() {
+				$.ajax({
+				    url : '/softwaretool/project/delete/'+id,
+				    type : 'PUT',
+				    success : function(data) {  
+					    if(data=="success"){    
+					    	$.sweetModal('Project is deactivated! you can activate later!!'); 
+				    		window.location.href = '/softwaretool/project/list'; 
+					    }else{
+					    	$.sweetModal("error, try again!");	
+							
+						 }
+				    },
+				    error : function(request,error){
+				        console.log("Request: "+JSON.stringify(request));
+				    }
+				});
+			}, function() {
+				//$.sweetModal('You declined. That\'s okay!');
+			});
+		}
+   </script>
     <!-- /#wrapper -->
 <jsp:include page="footer.jsp"/>]
 </body>

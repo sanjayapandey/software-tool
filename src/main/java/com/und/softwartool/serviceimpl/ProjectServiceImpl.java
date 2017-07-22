@@ -43,4 +43,8 @@ public class ProjectServiceImpl implements ProjectService{
 		return projectRepository.findAll();
 	}
 
+	public List<Project> findByStatus(boolean status) {
+		return projectRepository.findByStatus(status);
+	}
+
 }

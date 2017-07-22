@@ -10,3 +10,5 @@
 	<script type="text/javascript" src='<c:url value="/resources/vendor/metisMenu/metisMenu.min.js"/>'></script>
     <!-- Custom Theme JavaScript -->
     <script type="text/javascript" src='<c:url value="/resources/js/sb-admin-2.js"/>'></script>
+     <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src='<c:url value="/resources/js/jquery.sweet-modal.min.js"/>'></script>

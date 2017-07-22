@@ -23,6 +23,8 @@
     <!-- Morris Charts CSS -->
 <link rel="stylesheet"
 	href='<c:url value="/resources/css/font-awesome.min.css"/>'>
+	<link rel="stylesheet"
+	href='<c:url value="/resources/css/jquery.sweet-modal.min.css"/>'>
     <!-- Custom Fonts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -96,6 +98,11 @@
 	                    </div>
                     </c:if>
                     <div class="row">
+                    			<div class="col-lg-4 pull-right">
+	                    			<a href="/softwaretool/dashboard" class="btn btn-primary">Back to Dashboard</a>
+	                    			 <a class="btn btn-danger" onclick="return deleteProject(${project.id})">Delete Project</a>
+	                    			<br>
+                    			</div>
                                 <div class="col-lg-6">
                                     <form>
                                         <div class="form-group">
@@ -209,7 +216,7 @@
                                         </div>
                                         <form:button type="submit" class="btn btn-primary">Save</form:button>
                                         <form:button type="reset" class="btn btn-default">Reset</form:button>
-										<form:button type="submit" class="btn btn-danger">Delete</form:button>
+										<button id="deleteNonFunReq" class="btn btn-danger" disabled onclick="return deleteNFR()">Delete non-functional requirement</button>
                                     </form:form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -301,7 +308,7 @@
                                         </div>
                                         <form:button type="submit" class="btn btn-primary">Save</form:button>
                                         <form:button type="reset" class="btn btn-default">Reset</form:button>
-										<form:button type="submit" class="btn btn-danger">Delete</form:button>
+										<button id="deleteFunReq" class="btn btn-danger" disabled>Delete functional requirement</button>
                                     </form:form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -365,7 +372,7 @@
                                        
                                         <form:button type="submit" class="btn btn-primary">Save</form:button>
                                         <form:button type="reset" class="btn btn-default">Reset</form:button>
-										<form:button type="submit" class="btn btn-danger">Delete</form:button>
+										<button type="submit" class="btn btn-danger">Delete</button>
                                     </form:form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -418,6 +425,7 @@
 		        $('[name="response"]').val(data.response);
 		        $('[name="measure"]').val(data.measure);
 		        $('[name="description"]').val(data.description);
+		        $("#deleteNonFunReq").removeAttr('disabled');
 		    },
 		    error : function(request,error)
 		    {
@@ -441,12 +449,58 @@
 			        $('[name="prerequisites"]').val(data.prerequisites);
 			       // $('[name="nonFunctionalReq"]').val(data.nonFunctionalReq.qualityAttribute);
 			        $('[name="typeOfReq"]').val(data.typeOfReq);
+			        $("#deleteFunReq").removeAttr('disabled');
 			    },
 			    error : function(request,error){
 			        console.log("Request: "+JSON.stringify(request));
 			    }
 			});
 		 }
+		function deleteProject(id){
+			$.sweetModal.confirm('Delete the project?', 'Are you sure you want to delete this project?', function() {
+				$.ajax({
+				    url : '/softwaretool/project/delete/'+id,
+				    type : 'PUT',
+				    success : function(data) {  
+					    if(data=="success"){    
+					    	$.sweetModal('Project is deactivated! you can activate later!!'); 
+				    		window.location.href = '/softwaretool/project/list'; 
+					    }else{
+					    	$.sweetModal("error, try again!");	
+							
+						 }
+				    },
+				    error : function(request,error){
+				        console.log("Request: "+JSON.stringify(request));
+				    }
+				});
+			}, function() {
+				//$.sweetModal('You declined. That\'s okay!');
+			});
+		}
+		function deleteNFR(){
+			var id = $('#nonFunctionalReqId').val();
+			$.sweetModal.confirm('Delete the non functional requirement?', 'Are you sure you want to delete this requirement?', function() {
+				$.ajax({
+				    url : '/softwaretool/project/deleteNonFR/'+id,
+				    type : 'PUT',
+				    success : function(data) {  
+					    if(data=="success"){    
+				    		window.location.href = '/softwaretool/project/list'; 
+					    }else{
+					    	$.sweetModal("error,"+data);	
+							
+						 }
+				    },
+				    error : function(request,error){
+				        console.log("Request: "+JSON.stringify(request));
+				    }
+				});
+			}, function() {
+				//$.sweetModal('You declined. That\'s okay!');
+			});
+			
+			}
    </script>
     <!-- /#wrapper -->
 <jsp:include page="footer.jsp"/>]

@@ -89,7 +89,7 @@ public class ProjectController {
 	public ModelAndView showProjects(){
 		LOGGER.info("Inside ProjectController#showProjects method.");
 		ModelAndView modelAndView = new ModelAndView();
-		List<Project> projects = projectServiceImpl.findAll();
+		List<Project> projects = projectServiceImpl.findByStatus(true);
 		modelAndView.addObject("projects", projects);
 		modelAndView.setViewName("projects");
 		return modelAndView;
@@ -109,6 +109,7 @@ public class ProjectController {
 	public String saveProjectStep1(@ModelAttribute("project") Project newProject, BindingResult result, RedirectAttributes redirectAttributes){
 		LOGGER.info("Inside ProjectController#saveProjectStep1 method. Project is:{}", newProject.toString());
 		long id = newProject.getId();
+		newProject.setStatus(true);
 		//save project
 		projectServiceImpl.save(newProject);
 		LOGGER.info("saved project is:"+newProject.toString());
@@ -267,6 +268,20 @@ public class ProjectController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/delete/{id}", method=RequestMethod.PUT)
+	@ResponseBody
+	public String deleteProject(@PathVariable("id") long id, ModelAndView modelAndView ){
+		LOGGER.info("Inside ProjectController#deleteProject method.");
+		try{
+		Project project = projectServiceImpl.findById(id);
+		project.setStatus(false);
+		projectServiceImpl.save(project);
+		}catch(Exception e){
+			LOGGER.error("Error while delete. {}",e);
+		}
+		return "success";
+	}
+	
 	@RequestMapping( value="/view/{id}", method= RequestMethod.GET)
 	public ModelAndView viewProject(@PathVariable("id") long id){
 		LOGGER.info("Inside ProjectController#viewProject method. Id is:{}",id);
@@ -337,5 +352,32 @@ public class ProjectController {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	
+	@RequestMapping(value="/non-functional-req/{id}", method=RequestMethod.GET)
+	public ModelAndView viewNonFunctionalRequirement(@PathVariable("id") long id){
+		LOGGER.info("Inside ProjectController#viewNonFunctionalRequirement method. Id is: {}",id);
+		ModelAndView modelAndView = new ModelAndView();
+		NonFunctionalReq nonFunctionalReq = nonFunctionalReqServiceImpl.findById(id);
+		modelAndView.addObject("nonFunctionalRequirement", nonFunctionalReq);
+		List<FunctionalReq> functionalReqs = functionalReqServiceImpl.findByNonFunctionalReqAndProject(nonFunctionalReq, nonFunctionalReq.getProject());
+		modelAndView.addObject("functionalReqs", functionalReqs);
+		HashMap<Long, String> mapOfRelatedFR = new HashMap<Long, String>();
+		List<RelationOfRequirement> relationOfRequirements = relationOfRequirementServiceImpl.getByProject(nonFunctionalReq.getProject());
+		for(RelationOfRequirement relationOfRequirement:relationOfRequirements){
+			long functionalReqId = relationOfRequirement.getFunctionalReqId();
+			long relatedFunReqId = relationOfRequirement.getRelatedFunctionalReqId();
+			try{
+			FunctionalReq functionalReq =  functionalReqServiceImpl.findById(relatedFunReqId);
+			if(null != functionalReq){
+				mapOfRelatedFR.put(functionalReqId, functionalReqServiceImpl.findById(relatedFunReqId).getKey());
+			}
+			}catch(Exception e){
+				LOGGER.error("Error is:{}",e);
+			}
+		}
+		modelAndView.addObject("mapOfRelatedFR", mapOfRelatedFR);
+		modelAndView.setViewName("nft-details");
+		return modelAndView;
 	}
 }
