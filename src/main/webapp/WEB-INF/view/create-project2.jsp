@@ -254,6 +254,9 @@
                                 <div class="col-lg-6">
                                     <form:form modelAttribute="functionalReq" action="save-functional-req" method="POST" >
                                     	<input type="hidden" value="${functionalReq.project.id}" name="projectId"/>
+                                    	 <form:hidden path="id" value="${nonFunctionalReq.id}" id="functionalReqId"/>
+                                        <form:hidden path="counter" value="${nonFunctionalReq.counter}"/>
+                                        <form:hidden path="key" value="${nonFunctionalReq.key}"/>
                                     	<div class="form-group">
                                             <label>Name of Requirement</label>
                                             <form:textarea path="name" class="form-control" rows="1"></form:textarea>
@@ -311,7 +314,7 @@
 		                        <div class="panel-body">
 		                            <div class="list-group">
 		                                <c:forEach items="${functionalReqs}" var="functionalReq">
-		                            		<a href="#" class="list-group-item">
+		                            		<a class="list-group-item" onclick="return editFunctionalReq(${functionalReq.id})">
 		                                    	${functionalReq.name}
 		                                	</a>
 		                            	</c:forEach>
@@ -422,6 +425,28 @@
 		    }
 		});
 	 }
+
+	 function editFunctionalReq(id){
+		 $.ajax({
+			    url : '/softwaretool/project/getFunctionalReq/'+id,
+			    type : 'GET',
+			    dataType:'json',
+			    success : function(data) {         
+			    	$('#functionalReqId').val(data.id);
+			        $('[name="counter"]').val(data.counter);
+			    	$('[name="key"]').val(data.key);
+			        $('[name="name"]').val(data.name);
+			        $('[name="description"]').val(data.description);
+			        $('[name="references"]').val(data.references);
+			        $('[name="prerequisites"]').val(data.prerequisites);
+			       // $('[name="nonFunctionalReq"]').val(data.nonFunctionalReq.qualityAttribute);
+			        $('[name="typeOfReq"]').val(data.typeOfReq);
+			    },
+			    error : function(request,error){
+			        console.log("Request: "+JSON.stringify(request));
+			    }
+			});
+		 }
    </script>
     <!-- /#wrapper -->
 <jsp:include page="footer.jsp"/>]

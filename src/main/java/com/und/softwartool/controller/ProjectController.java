@@ -202,17 +202,21 @@ public class ProjectController {
 	public String saveFunctionalReq(@ModelAttribute("functionalReq") FunctionalReq newFunctionalReq, BindingResult result, RedirectAttributes redirectAttributes, @RequestParam("projectId") long projectId, @RequestParam("relatedFunctionalReq") long relatedFunctionalReqId){
 		LOGGER.info("Inside ProjectController#saveFunctionalReq method.");
 		//save project
+		boolean isEdit = false;
 		newFunctionalReq.setProject(projectServiceImpl.findById(projectId));
 		
-
-		long counter = 0;
-		try{
-		counter = functionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
-		}catch(Exception e){
-			LOGGER.error("Error is:{}",e);
+		if(newFunctionalReq.getId()==0){
+			long counter = 0;
+			try{
+			counter = functionalReqServiceImpl.findMaximumCounter(projectServiceImpl.findById(projectId));
+			}catch(Exception e){
+				LOGGER.error("Error is:{}",e);
+			}
+			newFunctionalReq.setCounter(counter+1);
+			newFunctionalReq.setKey("FR_"+newFunctionalReq.getCounter());
+		}else{
+			isEdit = true;
 		}
-		newFunctionalReq.setCounter(counter+1);
-		newFunctionalReq.setKey("FR_"+newFunctionalReq.getCounter());
 		
 		functionalReqServiceImpl.save(newFunctionalReq);
 		LOGGER.info("saved functional requirement is:"+newFunctionalReq.toString());
@@ -224,7 +228,11 @@ public class ProjectController {
 		relationOfRequirementServiceImpl.save(relationOfRequirement);
 		LOGGER.info("Relation with other requirement saved: {}",relationOfRequirement.toString());
 		redirectAttributes.addFlashAttribute("project", newFunctionalReq.getProject());
-		redirectAttributes.addFlashAttribute("success", "Functional requirement saved successfully!");
+		if(isEdit){
+			redirectAttributes.addFlashAttribute("success", "Functional requirement edited successfully!");
+		}else{
+			redirectAttributes.addFlashAttribute("success", "Functional requirement saved successfully!");
+		}
 		return "redirect:create-step-2";
 	}
 	
@@ -297,6 +305,27 @@ public class ProjectController {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(nonFunctionalReq);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@RequestMapping( value="/getFunctionalReq/{id}", method= RequestMethod.GET)
+	@ResponseBody
+	public String getFunctionalReq(@PathVariable("id") long id){
+		LOGGER.info("Inside ProjectController#getFunctionalReq method. Id is:{}",id);
+		FunctionalReq functionalReq = functionalReqServiceImpl.findById(id);
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(functionalReq);
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
