@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="log-path">${sys:catalina.base}</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="RollingFileAppender" fileName="${log-path}/logs/softwaretool.log"
+			filePattern="${sys:catalina.base}/logs/tenancy-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout>
+				<pattern>%d %p [%c]: %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.und.softwartool" level="DEBUG" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileAppender" />
+		</Logger>
+		<Logger name="org.amlfilter" level="DEBUG" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileAppender" />
+		</Logger>
+		<Logger name="org.springframework.web" level="DEBUG" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileAppender" />
+		</Logger>
+		<Root level="INFO">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFileAppender" />
+		</Root>
+		<category name="org.hibernate.type">
+		    <priority value="TRACE"/>
+		    <appender-ref ref="RollingFileAppender"/>
+		</category>
+	</Loggers>
+</Configuration>
