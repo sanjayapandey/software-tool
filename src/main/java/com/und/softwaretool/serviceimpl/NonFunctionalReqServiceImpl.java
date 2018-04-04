@@ -1,4 +1,4 @@
-package com.und.softwartool.serviceimpl;
+package com.und.softwaretool.serviceimpl;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.und.softwartool.model.NonFunctionalReq;
-import com.und.softwartool.model.Project;
-import com.und.softwartool.repository.NonFunctionalReqRepository;
-import com.und.softwartool.service.NonFunctionalReqService;
+import com.und.softwaretool.model.NonFunctionalReq;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.repository.NonFunctionalReqRepository;
+import com.und.softwaretool.service.NonFunctionalReqService;
 
 @Service
 public class NonFunctionalReqServiceImpl implements NonFunctionalReqService{

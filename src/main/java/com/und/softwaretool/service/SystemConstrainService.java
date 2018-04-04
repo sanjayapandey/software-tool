@@ -1,9 +1,9 @@
-package com.und.softwartool.service;
+package com.und.softwaretool.service;
 
 import java.util.List;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.model.SystemConstrain;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.model.SystemConstrain;
 
 public interface SystemConstrainService {
 	public SystemConstrain findById(long id);

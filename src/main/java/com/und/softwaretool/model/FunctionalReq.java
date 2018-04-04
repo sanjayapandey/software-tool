@@ -1,4 +1,4 @@
-package com.und.softwartool.model;
+package com.und.softwaretool.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

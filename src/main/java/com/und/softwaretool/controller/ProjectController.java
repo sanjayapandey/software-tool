@@ -1,4 +1,4 @@
-package com.und.softwartool.controller;
+package com.und.softwaretool.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.io.IOException;
@@ -29,16 +29,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.und.softwartool.model.FunctionalReq;
-import com.und.softwartool.model.NonFunctionalReq;
-import com.und.softwartool.model.Project;
-import com.und.softwartool.model.RelationOfRequirement;
-import com.und.softwartool.model.SystemConstrain;
-import com.und.softwartool.service.FunctionalReqService;
-import com.und.softwartool.service.NonFunctionalReqService;
-import com.und.softwartool.service.ProjectService;
-import com.und.softwartool.service.RelationOfRequirementService;
-import com.und.softwartool.service.SystemConstrainService;
+import com.und.softwaretool.model.FunctionalReq;
+import com.und.softwaretool.model.NonFunctionalReq;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.model.RelationOfRequirement;
+import com.und.softwaretool.model.SystemConstrain;
+import com.und.softwaretool.service.FunctionalReqService;
+import com.und.softwaretool.service.NonFunctionalReqService;
+import com.und.softwaretool.service.ProjectService;
+import com.und.softwaretool.service.RelationOfRequirementService;
+import com.und.softwaretool.service.SystemConstrainService;
 
 @Controller
 @RequestMapping("/project")

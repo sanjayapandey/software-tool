@@ -1,11 +1,11 @@
-package com.und.softwartool.repository;
+package com.und.softwaretool.repository;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.und.softwartool.model.Project;
+import com.und.softwaretool.model.Project;
 
 @Repository
 public interface ProjectRepository extends CrudRepository<Project, Long>{

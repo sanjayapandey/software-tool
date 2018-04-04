@@ -1,4 +1,4 @@
-package com.und.softwartool.serviceimpl;
+package com.und.softwaretool.serviceimpl;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.model.RelationOfRequirement;
-import com.und.softwartool.repository.RelationOfRequirementRepository;
-import com.und.softwartool.service.RelationOfRequirementService;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.model.RelationOfRequirement;
+import com.und.softwaretool.repository.RelationOfRequirementRepository;
+import com.und.softwaretool.service.RelationOfRequirementService;
 
 @Service
 public class RelationOfRequirementServiceImpl implements RelationOfRequirementService{

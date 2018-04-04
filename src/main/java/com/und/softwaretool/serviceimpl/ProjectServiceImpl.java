@@ -1,4 +1,4 @@
-package com.und.softwartool.serviceimpl;
+package com.und.softwaretool.serviceimpl;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.repository.ProjectRepository;
-import com.und.softwartool.service.ProjectService;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.repository.ProjectRepository;
+import com.und.softwaretool.service.ProjectService;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{

@@ -1,4 +1,4 @@
-package com.und.softwartool.controller;
+package com.und.softwaretool.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.service.ProjectService;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.service.ProjectService;
 
 @Controller
 @RequestMapping("/dashboard")

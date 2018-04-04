@@ -1,4 +1,4 @@
-package com.und.softwartool.model;
+package com.und.softwaretool.model;
 
 import java.util.Date;
 

@@ -1,10 +1,10 @@
-package com.und.softwartool.service;
+package com.und.softwaretool.service;
 
 import java.util.List;
 
-import com.und.softwartool.model.FunctionalReq;
-import com.und.softwartool.model.NonFunctionalReq;
-import com.und.softwartool.model.Project;
+import com.und.softwaretool.model.FunctionalReq;
+import com.und.softwaretool.model.NonFunctionalReq;
+import com.und.softwaretool.model.Project;
 
 public interface FunctionalReqService {
 	public FunctionalReq findById(long id);

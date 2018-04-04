@@ -1,7 +1,7 @@
-package com.undsoftwaretool.utility;
+package com.und.softwaretool.utility;
 
-import com.und.softwartool.model.FunctionalReq;
-import com.und.softwartool.model.NonFunctionalReq;
+import com.und.softwaretool.model.FunctionalReq;
+import com.und.softwaretool.model.NonFunctionalReq;
 
 public class CustomRequirementRelationDetail {
 	private FunctionalReq functionalReq;

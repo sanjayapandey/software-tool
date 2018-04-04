@@ -1,4 +1,4 @@
-package com.und.softwartool.repository;
+package com.und.softwaretool.repository;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.model.SystemConstrain;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.model.SystemConstrain;
 
 @Repository
 public interface SystemConstrainRepository extends CrudRepository<SystemConstrain, Long>{

@@ -1,8 +1,8 @@
-package com.und.softwartool.service;
+package com.und.softwaretool.service;
 
 import java.util.List;
 
-import com.und.softwartool.model.Project;
+import com.und.softwaretool.model.Project;
 
 public interface ProjectService {
 	public Project findById(long id);

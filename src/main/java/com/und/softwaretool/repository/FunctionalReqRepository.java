@@ -1,4 +1,4 @@
-package com.und.softwartool.repository;
+package com.und.softwaretool.repository;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.und.softwartool.model.FunctionalReq;
-import com.und.softwartool.model.NonFunctionalReq;
-import com.und.softwartool.model.Project;
+import com.und.softwaretool.model.FunctionalReq;
+import com.und.softwaretool.model.NonFunctionalReq;
+import com.und.softwaretool.model.Project;
 
 @Repository
 public interface FunctionalReqRepository extends CrudRepository<FunctionalReq, Long>{

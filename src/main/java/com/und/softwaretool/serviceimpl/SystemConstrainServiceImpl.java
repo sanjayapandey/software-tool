@@ -1,4 +1,4 @@
-package com.und.softwartool.serviceimpl;
+package com.und.softwaretool.serviceimpl;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.und.softwartool.model.Project;
-import com.und.softwartool.model.SystemConstrain;
-import com.und.softwartool.repository.SystemConstrainRepository;
-import com.und.softwartool.service.SystemConstrainService;
+import com.und.softwaretool.model.Project;
+import com.und.softwaretool.model.SystemConstrain;
+import com.und.softwaretool.repository.SystemConstrainRepository;
+import com.und.softwaretool.service.SystemConstrainService;
 
 @Service
 public class SystemConstrainServiceImpl implements SystemConstrainService{
