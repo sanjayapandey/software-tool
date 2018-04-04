@@ -1,2 +1,2 @@
-# software-tool
-Software requirement tool
+# Software Requirement Tool
+The software requirement tool allows to create non-functional requirements, functional requirements and system constraint. It utilizes quality attribute scenarios(templates) to create non-functional requirements. For the functional requirements, it utilizing the template which was originally proposed by Carnegie Mellon Software Engineering Institute (SEI). User can link non-functional requirement with functional requirement and also functional to functional requirement, which creates a tree structure of requirements with hierarchy. System constraint consists of software, hardware and network requirement for that project. The tool provides feature to list the project, search project and print the whole project. 
