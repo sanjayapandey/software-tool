@@ -3,8 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
-<%@ page import="com.und.softwaretool.service.RelationOfRequirementService" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,14 +53,13 @@
 	</script>
 <body>
     <div id="wrapper">
-        <!-- Navigation -->
+	<!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-           <jsp:include page="header.jsp"/>
-            <!-- /.navbar-top-links -->
+             <jsp:include page="header.jsp"/>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li>
+                      <li>
                             <a href="/softwaretool/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
@@ -83,68 +80,91 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-		
+
         <div id="page-wrapper">
-            <!-- /.row -->
-            <div class="row" id="nfr">
+           <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-green">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                <div class="col-lg-12">
-                                	<div class="col-lg-8">
-                                		<h4>${nonFunctionalRequirement.qualityAttribute}</h4>
-                                		<hr>
-                                	</div>
-	                                <div class="col-lg-4 pull-right">
-	                    			<a href="/softwaretool/project/view/${nonFunctionalRequirement.project.id}" class="btn btn-primary">Back to Project</a>
-	                    			</div>
-	                    			
+                    <h4 class="page-header">Cost Estimation</h4>
+                    <div class="row">
+                    			<div class="col-lg-12">
+                    			<div class="row">
+                    				<label>Project Name: </label>${project.name}<hr>
+                    			</row>
                     			</div>
-                                <h5>Related functional requirement</h5>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-hover table-striped">
+                                <div class="col-lg-6">
+                                   
+                                        <div class="row">
+                                        	<label>CFP Calculation Table</label>
+                                			<table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Name</th>
-                                                    <th>Description</th>
+                                                    <th>Complexity</th>
+                                                    <th>Low</th>
+                                                    <th>Average</th>
+                                                    <th>High</th>
+                                                    <th>Total</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            	<c:forEach items="${functionalReqs}" var="functionalReq">
+<%--                                             	<c:forEach items="${cfp}" var="cfp"> --%>
                                             		<tr>
-	                                                    <td width="10%">${functionalReq.key }</td>
-	                                                    <c:set var="funReqId" value="${functionalReq.id }"/>
-	                                                     <td width="30%">${functionalReq.name}<br>
-	                                                  	<c:forEach var="entry" items="${mapOfRelatedFR}">
-	                                                  		<c:if test="${entry.key eq functionalReq.id}">
-	                                                  			<span class="label label-info"><c:out value="${entry.value}"/></span>
-	                                                  		</c:if>
-														</c:forEach>
-	                                                     </td>
-	                                                     <td>${functionalReq.description}</td>
-	                                                </tr>
-				                            	</c:forEach>
+	                                                    <td width="60%">External Inputs</td>
+	                                                    <td width="10%">2</td>
+	                                                    <td width="10%">4</td>
+	                                                    <td width="10%">1</td>
+	                                                    <td width="10%">7</td>
+	                                                
+                                                	</tr>
+                                                	<tr>
+	                                                    <td width="60%">External Outputs</td>
+	                                                    <td width="10%">2</td>
+	                                                    <td width="10%">4</td>
+	                                                    <td width="10%">1</td>
+	                                                    <td width="10%">7</td>
+	                                                
+                                                	</tr>
+                                                	
+<%--                                             	</c:forEach> --%>
+                                               
                                             </tbody>
                                         </table>
-                                    </div>
-                                    <!-- /.table-responsive -->
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
+		                                </div>
+		                                
+                                        <a href="/softwaretool/dashboard" class="btn btn-primary">Back to Dashboard</a>
+                                  </div>
+                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-           </div>
-     </div> 
-    <!-- /#wrapper -->
-<jsp:include page="footer.jsp"/>]
+            <!-- /.row -->
+        </div>
+     </div>
+     <script type="text/javascript">
+		function deleteProject(id){
+			$.sweetModal.confirm('Delete the project?', 'Are you sure you want to delete this project?', function() {
+				$.ajax({
+				    url : '/softwaretool/project/delete/'+id,
+				    type : 'PUT',
+				    success : function(data) {  
+					    if(data=="success"){    
+					    	$.sweetModal('Project is deactivated! you can activate later!!'); 
+				    		window.location.href = '/softwaretool/project/list'; 
+					    }else{
+					    	$.sweetModal("error, try again!");	
+							
+						 }
+				    },
+				    error : function(request,error){
+				        console.log("Request: "+JSON.stringify(request));
+				    }
+				});
+			}, function() {
+				//$.sweetModal('You declined. That\'s okay!');
+			});
+		}
+   </script>
+    <jsp:include page="footer.jsp"/>
+
 </body>
 
 </html>
