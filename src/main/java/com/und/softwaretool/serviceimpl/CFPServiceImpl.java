@@ -37,4 +37,8 @@ public class CFPServiceImpl implements CFPService{
 			return null;
 		}
 	}
+
+	public CFP save(CFP cfp) {
+		return cfpRepositoty.save(cfp);
+	}
 }

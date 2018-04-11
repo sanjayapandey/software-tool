@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.und.softwaretool.model.CFP;
 import com.und.softwaretool.model.Project;
 import com.und.softwaretool.model.RCAF;
 import com.und.softwaretool.repository.RCAFRepository;
@@ -27,5 +28,16 @@ public class RCAFServiceImpl implements RCAFService{
 	public List<RCAF> findByProject(Project project) {
 		LOGGER.info("Inside RCAFServieImpl#findByProject method. Project : {}",project.toString());
 		return rcafRepository.findByProject(project);
+	}
+	public RCAF getRCAF(Project project) {
+		List<RCAF> rcafs = rcafRepository.findByProject(project);
+		if(rcafs!=null && rcafs.size()>0) {
+			return rcafs.get(0);
+		}else {
+			return null;
+		}
+	}
+	public RCAF save(RCAF rcaf) {
+		return rcafRepository.save(rcaf);
 	}
 }

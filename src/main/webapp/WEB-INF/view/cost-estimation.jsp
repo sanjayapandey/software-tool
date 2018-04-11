@@ -91,45 +91,118 @@
                     				<label>Project Name: </label>${project.name}<hr>
                     			</row>
                     			</div>
-                                <div class="col-lg-6">
-                                   
+                                <div class="col-lg-12">
                                         <div class="row">
+                                        	<form action="save-cfp" name="cfp-form" method="POST">
+                                        	<input type="hidden" name="projectId" value="${project.id}">
+                                        	<input type="hidden" name="cfpId" value="${cfp.id}">
+                                        	<input type="hidden" name="eiId" value="${externalInputs.id}">
+                                        	<input type="hidden" name="eifId" value="${externalInterfaceFiles.id}">
+                                        	<input type="hidden" name="eoId" value="${externalOutputs.id}">
+                                        	<input type="hidden" name="eqId" value="${externalQueries.id}">
+                                        	<input type="hidden" name="ilfId" value="${internalLogicFiles.id}">
                                         	<label>CFP Calculation Table</label>
                                 			<table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Complexity</th>
-                                                    <th>Low</th>
-                                                    <th>Average</th>
-                                                    <th>High</th>
-                                                    <th>Total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-<%--                                             	<c:forEach items="${cfp}" var="cfp"> --%>
-                                            		<tr>
-	                                                    <td width="60%">External Inputs</td>
-	                                                    <td width="10%">2</td>
-	                                                    <td width="10%">4</td>
-	                                                    <td width="10%">1</td>
-	                                                    <td width="10%">7</td>
-	                                                
-                                                	</tr>
-                                                	<tr>
-	                                                    <td width="60%">External Outputs</td>
-	                                                    <td width="10%">2</td>
-	                                                    <td width="10%">4</td>
-	                                                    <td width="10%">1</td>
-	                                                    <td width="10%">7</td>
-	                                                
-                                                	</tr>
-                                                	
-<%--                                             	</c:forEach> --%>
-                                               
-                                            </tbody>
-                                        </table>
+	                                            <thead>
+	                                                <tr>
+	                                                    <th>Complexity</th>
+	                                                    <th colspan="2">Simple</th>
+	                                                    <th colspan="2">Average</th>
+	                                                    <th colspan="2">Complex</th>
+	                                                    <th >Total</th>
+	                                                </tr>
+	                                            </thead>
+	                                            <tbody>
+	                                            		<tr>
+		                                                    <td width="">External Inputs</td>
+		                                                    <td width=""><input type="number" name="eiSimple" value="${externalInputs.simple}"></td>
+		                                                    <td width="">X 3</td>
+		                                                    <td width=""><input type="number" name="eiAverage" value="${externalInputs.average}"></td>
+		                                                    <td width="">X 4</td>
+		                                                    <td width=""><input type="number" name="eiComplex" value="${externalInputs.complex}"></td>
+		                                                    <td width="">X 6</td>
+		                                                    <td width="">16</td>
+	                                                	</tr>
+	                                                	<tr>
+		                                                    <td width="">External Interface Files</td>
+		                                                    <td width=""><input type="number" name="eifSimple" value="${externalInterfaceFiles.simple}"></td>
+		                                                    <td width="">X 4</td>
+		                                                    <td width=""><input type="number" name="eifAverage" value="${externalInterfaceFiles.average}"></td>
+		                                                    <td width="">X 5</td>
+		                                                    <td width=""><input type="number" name="eifComplex" value="${externalInterfaceFiles.complex}"></td>
+		                                                    <td width="">X 7</td>
+		                                                    <td width="">13 </td>
+	                                                	</tr>
+	                                                	<tr>
+		                                                    <td width="">External Outputs</td>
+		                                                    <td width=""><input type="number" name="eoSimple" value="${externalOutputs.simple}"></td>
+		                                                     <td width="">X 7</td>
+		                                                    <td width=""><input type="number" name="eoAverage" value="${externalOutputs.average}"></td>
+		                                                     <td width="">X 10</td>
+		                                                    <td width=""><input type="number" name="eoComplex" value="${externalOutputs.complex}"> </td>
+		                                                     <td width="">X 15</td>
+		                                                    <td width="">19 </td>
+	                                                	</tr>
+	                                                	<tr>
+		                                                    <td width="">External Queries</td>
+		                                                    <td width=""><input type="number" name="eqSimple" value="${externalQueries.simple}"></td>
+		                                                     <td width="">X 3</td>
+		                                                    <td width=""><input type="number" name="eqAverage" value="${externalQueries.average}"> </td>
+		                                                     <td width="">X 5</td>
+		                                                    <td width=""><input type="number" name="eqComplex" value="${externalQueries.complex}"> </td>
+		                                                     <td width="">X 7</td>
+		                                                    <td width="">17 </td>
+	                                                	</tr>
+	                                                	<tr>
+		                                                    <td width="">Internal Logic Files</td>
+		                                                    <td width=""><input type="number" name="ilfSimple" value="${internalLogicFiles.simple}"></td>
+		                                                     <td width="">X 5</td>
+		                                                    <td width=""><input type="number" name="ilfAverage" value="${internalLogicFiles.average}"></td>
+		                                                     <td width="">X 7</td>
+		                                                    <td width=""><input type="number" name="ilfComplex" value="${internalLogicFiles.complex}"></td>
+		                                                     <td width="">X 10</td>
+		                                                    <td width="">14 </td>
+	                                                	</tr>
+	                                                	
+	                                            </tbody>
+                                       		 </table>
+                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="save"/>
+                                       		</form>
 		                                </div>
-		                                
+		                                <div class="row">
+                                        	<form action="save-rcaf" name="rcaf-form" method="POST">
+                                        	<input type="hidden" name="projectId" value="${project.id}">
+                                        	<input type="hidden" name="rcafId" value="${rcaf.id}">
+                                        	<label>Relative complexity adjustment factor (FCAF) form</label>
+                                			<table class="table table-bordered table-hover table-striped">
+	                                            <thead>
+	                                                <tr>
+	                                                    <th>No</th>
+	                                                    <th>Subject</th>
+	                                                    <th>Grade</th>
+	                                                </tr>
+	                                            </thead>
+	                                            <tbody>
+	                                                  	 <c:forEach items="${map}" var="subject">
+													        <tr>
+				                                                   <td>${subject.key}</td>
+				                                                   <td>${subject.value}</td>
+				                                                   <td>
+				                                                 
+				                                                   <input type="radio" name="s${subject.key}" value="0" <c:if test="${gradeMap[subject.key] eq 0}">checked</c:if>>0 &nbsp&nbsp&nbsp 
+				                                                   <input type="radio" name="s${subject.key}" value="1" <c:if test="${gradeMap[subject.key] eq 1}">checked</c:if>>1 &nbsp&nbsp&nbsp
+				                                                   <input type="radio" name="s${subject.key}" value="2" <c:if test="${gradeMap[subject.key] eq 2}">checked</c:if>>2 &nbsp&nbsp&nbsp
+				                                                   <input type="radio" name="s${subject.key}" value="3" <c:if test="${gradeMap[subject.key] eq 3}">checked</c:if>>3 &nbsp&nbsp&nbsp
+				                                                   <input type="radio" name="s${subject.key}" value="4" <c:if test="${gradeMap[subject.key] eq 4}">checked</c:if>>4 &nbsp&nbsp&nbsp
+				                                                   <input type="radio" name="s${subject.key}" value="5" <c:if test="${gradeMap[subject.key] eq 5}">checked</c:if>>5 &nbsp&nbsp&nbsp
+				                                                   </td>
+	                                                		</tr>
+													    </c:forEach>
+	                                            </tbody>
+                                       		 </table>
+                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="save"/>
+                                       		</form>
+		                                </div>
                                         <a href="/softwaretool/dashboard" class="btn btn-primary">Back to Dashboard</a>
                                   </div>
                      </div>
@@ -139,6 +212,7 @@
             <!-- /.row -->
         </div>
      </div>
+    </div>
      <script type="text/javascript">
 		function deleteProject(id){
 			$.sweetModal.confirm('Delete the project?', 'Are you sure you want to delete this project?', function() {

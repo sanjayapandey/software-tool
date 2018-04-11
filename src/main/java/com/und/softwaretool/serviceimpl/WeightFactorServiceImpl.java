@@ -22,4 +22,8 @@ public class WeightFactorServiceImpl implements WeightFactorService{
 		return weightFactorRepository.findById(id);
 	}
 
+	public WeightFactor save(WeightFactor weightFactor) {
+		return weightFactorRepository.save(weightFactor);
+	}
+
 }

@@ -4,4 +4,5 @@ import com.und.softwaretool.model.WeightFactor;
 
 public interface WeightFactorService {
 	public WeightFactor findById(long id);
+	public WeightFactor save(WeightFactor weightFactor);
 }
