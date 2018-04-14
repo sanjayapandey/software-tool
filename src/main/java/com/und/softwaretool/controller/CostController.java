@@ -210,4 +210,66 @@ public class CostController {
 		wf.setComplex(complex);
 		return wf;
 	}
+	
+	@RequestMapping( value="/calculate/{id}", method= RequestMethod.GET)
+	public ModelAndView calculateCost(@PathVariable("id") long id){
+		LOGGER.info("Inside CostController#calculateCost method. Id is:{}",id);
+		ModelAndView modelAndView = new ModelAndView();
+		Project project = projectServiceImpl.findById(id);
+		modelAndView.addObject("project",project);
+		CFP cfp = cfpServiceImpl.getCFP(project);
+		RCAF rcaf = rcafServiceImpl.getRCAF(project);
+		
+		if(cfp!=null && rcaf !=null) {
+			double CFPSum = 0;
+			double RCAFSum=0;
+			
+			//calculate CFP sum
+			WeightFactor ei = weightFactorServiceImpl.findById(cfp.getEiId());
+			WeightFactor eif = weightFactorServiceImpl.findById(cfp.getEifId());
+			WeightFactor eo = weightFactorServiceImpl.findById(cfp.getEoId());
+			WeightFactor eq = weightFactorServiceImpl.findById(cfp.getEqId());
+			WeightFactor il = weightFactorServiceImpl.findById(cfp.getIlfId());
+			
+			CFPSum+= ei.getSimple()*3+ei.getAverage()*4+ei.getComplex()*6;
+			CFPSum+= eif.getSimple()*4+eif.getAverage()*5+eif.getComplex()*7;
+			CFPSum+= eo.getSimple()*7+eo.getAverage()*10+eo.getComplex()*15;
+			CFPSum+= eq.getSimple()*3+eq.getAverage()*5+eq.getComplex()*7;
+			CFPSum+= il.getSimple()*5+il.getAverage()*7+il.getComplex()*10;
+			
+			System.out.println("CFPSum is:"+CFPSum);
+			
+			//calculate RCAFSum
+			
+			RCAFSum = rcaf.getS1()+rcaf.getS2()+rcaf.getS3()+rcaf.getS4()+rcaf.getS5()+rcaf.getS6()+rcaf.getS7()+
+					rcaf.getS8()+rcaf.getS9()+rcaf.getS10()+rcaf.getS11()+rcaf.getS12()+rcaf.getS13()+rcaf.getS14();
+			
+			System.out.println("RCAFsum is:"+RCAFSum);
+			
+			/*
+			 * Functional Point calculation
+			 * FP = Count_Total * [ 0.65 + 0.01 * Sum(RCAF)]
+			 */
+			double fp = CFPSum * (0.65 + 0.01 * RCAFSum);
+			
+			System.out.println("Functional Points of project is: "+fp);
+			/*
+			 * Effort = Total_Functional_Point(FP)/Productivity
+			 */
+			double productivity = 10;
+			double effort = fp/productivity;
+			
+			/*
+			 * Total cost = effort * average_cost_per_fp
+			 */
+			double totalCost = effort * 1000;
+			
+			System.out.println("Effort: "+effort +"Total Cost:"+totalCost);
+			modelAndView.addObject("fp", fp);
+			modelAndView.addObject("effort",effort);
+			modelAndView.addObject("totalCost", totalCost);
+		}
+		modelAndView.setViewName("cost-calculation");
+		return modelAndView;
+	} 
 }

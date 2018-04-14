@@ -51,6 +51,32 @@
 			$("#nfr").hide();
 		}
 	</script>
+	<style>
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.round {
+    border-radius: 50%;
+}
+</style>
 <body>
     <div id="wrapper">
 	<!-- Navigation -->
@@ -84,7 +110,8 @@
         <div id="page-wrapper">
            <div class="row">
                 <div class="col-lg-12">
-                    <h4 class="page-header">Cost Estimation</h4>
+                    <h4 class="page-header">Cost Estimation &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a href="/softwaretool/dashboard" class="btn previous">&laquo;   Previous</a>
+<a href="calculate/${project.id}" class="btn next">Calculate Cost   &raquo;</a> </h4>
                     <div class="row">
                     			<div class="col-lg-12">
                     			<div class="row">
@@ -166,14 +193,16 @@
 	                                                	
 	                                            </tbody>
                                        		 </table>
-                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="save"/>
+                                       		
+                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="Save CFP Table"/>
+                                       		 <button type="reset" class="btn btn-default pull-right">Reset Table   </button>
                                        		</form>
 		                                </div>
 		                                <div class="row">
                                         	<form action="save-rcaf" name="rcaf-form" method="POST">
                                         	<input type="hidden" name="projectId" value="${project.id}">
                                         	<input type="hidden" name="rcafId" value="${rcaf.id}">
-                                        	<label>Relative complexity adjustment factor (FCAF) form</label>
+                                        	<label>Relative complexity adjustment factor (RCAF) form</label>
                                 			<table class="table table-bordered table-hover table-striped">
 	                                            <thead>
 	                                                <tr>
@@ -200,10 +229,11 @@
 													    </c:forEach>
 	                                            </tbody>
                                        		 </table>
-                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="save"/>
+                                       		 
+                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="Save RCAF Form"/>
+                                       		 <button type="reset" class="btn btn-default pull-right">Reset From  </button>
                                        		</form>
 		                                </div>
-                                        <a href="/softwaretool/dashboard" class="btn btn-primary">Back to Dashboard</a>
                                   </div>
                      </div>
                 </div>
