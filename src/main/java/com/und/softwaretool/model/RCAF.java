@@ -60,6 +60,9 @@ public class RCAF {
 	
 	@Column(name="s14")
 	private int s14;
+	
+	@Column(name="staff")
+	private int staff;
 
 	public long getId() {
 		return id;
@@ -189,10 +192,18 @@ public class RCAF {
 		this.s14 = s14;
 	}
 
+	public int getStaff() {
+		return staff;
+	}
+
+	public void setStaff(int staff) {
+		this.staff = staff;
+	}
+
 	@Override
 	public String toString() {
 		return "RCAF [id=" + id + ", project=" + project + ", s1=" + s1 + ", s2=" + s2 + ", s3=" + s3 + ", s4=" + s4
 				+ ", s5=" + s5 + ", s6=" + s6 + ", s7=" + s7 + ", s8=" + s8 + ", s9=" + s9 + ", s10=" + s10 + ", s11="
-				+ s11 + ", s12=" + s12 + ", s13=" + s13 + ", s14=" + s14 + "]";
+				+ s11 + ", s12=" + s12 + ", s13=" + s13 + ", s14=" + s14 + ", staff=" + staff + "]";
 	}
 }

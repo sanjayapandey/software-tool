@@ -129,7 +129,7 @@ a:hover {
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6"  style="font-size: 18px;color: mediumblue;">
                                    Total Functional Point: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${fp}" />
                                    
                                 </div>
@@ -157,12 +157,15 @@ a:hover {
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="font-size: 18px;color: mediumblue;">
                                    Total Effort : <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${effort}" />
+                                   PM
                                 </div>
                                 <div class="col-lg-6">
                                	<strong> Effort = Total_Functional_Point(FP)/Productivity</strong><br>
-                               	<i> Assumption: productivity = 10</i>
+                               	<i> Assumption: productivity = 10 <br>
+                               	PM = person-months
+                               	</i>
                                 </div>
                             </div>
                             <!-- /.row (nested) -->
@@ -183,7 +186,7 @@ a:hover {
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" style="font-size: 18px;color: mediumblue;">
                                    Total Cost : $ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalCost}" />
                                  </div>
                                  <div class="col-lg-6">
@@ -200,6 +203,56 @@ a:hover {
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+             <!-- /.row -->
+            <div class="row" id="nfr">
+                <div class="col-lg-10">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            Size (LOC)
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6" style="font-size: 18px;color: mediumblue;">
+                                   Size(Line of Code): <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${size}" />
+                                </div>
+                                <div class="col-lg-6">
+                               	<strong> Size(LOC) = functional Point* effort</strong><br>
+                               	
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            	<!-- /.row -->
+	            <div class="row" id="nfr">
+	                <div class="col-lg-10">
+	                    <div class="panel panel-green">
+	                        <div class="panel-heading">
+	                            Duration
+	                        </div>
+	                        <div class="panel-body">
+	                            <div class="row">
+	                                <div class="col-lg-6" style="font-size: 18px;color: mediumblue;">
+	                                  Duration: ${duration} months
+	                                 </div>
+	                                 <div class="col-lg-6">
+		                               		<strong> Duration = Effort / number of staff </strong><br>
+		                                </div>
+	                            </div>
+	                            <!-- /.row (nested) -->
+	                        </div>
+	                        <!-- /.panel-body -->
+	                    </div>
+	                    <!-- /.panel -->
+	                </div>
+	                <!-- /.col-lg-12 -->
+	            </div>
+	            <!-- /.row -->
         </div>
      </div>
     </div>

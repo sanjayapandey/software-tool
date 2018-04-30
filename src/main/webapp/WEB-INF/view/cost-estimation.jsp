@@ -136,7 +136,7 @@ a:hover {
 	                                                    <th colspan="2">Simple</th>
 	                                                    <th colspan="2">Average</th>
 	                                                    <th colspan="2">Complex</th>
-	                                                    <th >Total</th>
+	                                                    
 	                                                </tr>
 	                                            </thead>
 	                                            <tbody>
@@ -148,7 +148,7 @@ a:hover {
 		                                                    <td width="">X 4</td>
 		                                                    <td width=""><input type="number" name="eiComplex" value="${externalInputs.complex}"></td>
 		                                                    <td width="">X 6</td>
-		                                                    <td width="">16</td>
+		                                                    
 	                                                	</tr>
 	                                                	<tr>
 		                                                    <td width="">External Interface Files</td>
@@ -158,7 +158,7 @@ a:hover {
 		                                                    <td width="">X 5</td>
 		                                                    <td width=""><input type="number" name="eifComplex" value="${externalInterfaceFiles.complex}"></td>
 		                                                    <td width="">X 7</td>
-		                                                    <td width="">13 </td>
+		                                                  
 	                                                	</tr>
 	                                                	<tr>
 		                                                    <td width="">External Outputs</td>
@@ -168,7 +168,7 @@ a:hover {
 		                                                     <td width="">X 10</td>
 		                                                    <td width=""><input type="number" name="eoComplex" value="${externalOutputs.complex}"> </td>
 		                                                     <td width="">X 15</td>
-		                                                    <td width="">19 </td>
+		                                                   
 	                                                	</tr>
 	                                                	<tr>
 		                                                    <td width="">External Queries</td>
@@ -178,7 +178,7 @@ a:hover {
 		                                                     <td width="">X 5</td>
 		                                                    <td width=""><input type="number" name="eqComplex" value="${externalQueries.complex}"> </td>
 		                                                     <td width="">X 7</td>
-		                                                    <td width="">17 </td>
+		                                                    
 	                                                	</tr>
 	                                                	<tr>
 		                                                    <td width="">Internal Logic Files</td>
@@ -188,7 +188,7 @@ a:hover {
 		                                                     <td width="">X 7</td>
 		                                                    <td width=""><input type="number" name="ilfComplex" value="${internalLogicFiles.complex}"></td>
 		                                                     <td width="">X 10</td>
-		                                                    <td width="">14 </td>
+		                                                    
 	                                                	</tr>
 	                                                	
 	                                            </tbody>
@@ -233,8 +233,21 @@ a:hover {
                                        		 <input type="submit" class="btn btn-primary pull-right" name="save" value="Save RCAF Form"/>
                                        		 <button type="reset" class="btn btn-default pull-right">Reset From  </button>
                                        		</form>
+		                                </div><br><br>
+		                                <div class="row">
+                                        	<form action="save-staff" name="staff-form" method="POST">
+                                        	<input type="hidden" name="projectId" value="${project.id}">
+                                        	<input type="hidden" name="rcafId" value="${rcaf.id}">
+                                        	<label>Number of Staff</label>
+                                			<input type="number" name="staff" value="${staff}">
+                                       		 
+                                       		 <input type="submit" class="btn btn-primary pull-right" name="save" value="Save Number of Staff"/>
+                                       		 <button type="reset" class="btn btn-default pull-right">Reset From  </button>
+                                       		</form>
 		                                </div>
+		                                <br><br>
                                   </div>
+                                  
                      </div>
                 </div>
                 <!-- /.col-lg-12 -->

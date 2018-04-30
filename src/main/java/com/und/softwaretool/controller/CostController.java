@@ -95,6 +95,7 @@ public class CostController {
 		gradeMap.put(13, rcaf.getS13());gradeMap.put(14, rcaf.getS14());
 		
 		modelAndView.addObject("map",map);
+		modelAndView.addObject("staff",rcaf.getStaff());
 		modelAndView.addObject("gradeMap",gradeMap);
 		}catch(Exception e) {
 			LOGGER.error("Exception:"+e.getMessage());
@@ -187,6 +188,28 @@ public class CostController {
 		return "redirect:/cost-estimate/"+project.getId();
 	} 
 	
+	@RequestMapping( value="/save-staff", method= RequestMethod.POST)
+	public String saveStaff(HttpServletRequest request){
+		long projectId = Long.valueOf(!request.getParameter("projectId").isEmpty()?request.getParameter("projectId"):"0");
+		long rcafId =  Long.valueOf(!request.getParameter("rcafId").isEmpty()?request.getParameter("rcafId"):"0");
+		long staff =  Long.valueOf(!request.getParameter("staff").isEmpty()?request.getParameter("staff"):"0");
+		LOGGER.info("Inside CostController#saveRCAF method. projectId is:{}, cfpId is: {}",projectId, staff);
+		Project project = projectServiceImpl.findById(projectId);
+		//save the cfp
+		RCAF rcaf;
+		if(rcafId ==0) {
+			rcaf = new RCAF();
+			rcaf.setProject(project);
+		}else {
+			rcaf = rcafServiceImpl.findById(rcafId);
+		}
+		//set subject grade
+		rcaf.setStaff(Integer.valueOf(!request.getParameter("staff").isEmpty()?request.getParameter("staff"):"0"));
+		System.out.println("staff:"+staff);
+		rcafServiceImpl.save(rcaf);
+		return "redirect:/cost-estimate/"+project.getId();
+	} 
+	
 	/**
 	 * 
 	 * @param wfId
@@ -264,7 +287,18 @@ public class CostController {
 			 */
 			double totalCost = effort * 1000;
 			
+			/*
+			 * Size(LOC) = functional Point* effort
+			 */
+			int size = (int) (fp*effort);
+			/*
+			 * Duration = Effort / number of staff
+			 */
+			
+			int duration = rcaf.getStaff()!=0?(int) (effort/rcaf.getStaff()):0;
 			System.out.println("Effort: "+effort +"Total Cost:"+totalCost);
+			modelAndView.addObject("size",size);
+			modelAndView.addObject("duration",duration);
 			modelAndView.addObject("fp", fp);
 			modelAndView.addObject("effort",effort);
 			modelAndView.addObject("totalCost", totalCost);
