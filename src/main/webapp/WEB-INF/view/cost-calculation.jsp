@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,15 +116,86 @@ a:hover {
                     			<div class="col-lg-12">
                     			<div class="row">
                     				<label>Project Name: </label>${project.name}<hr>
-                    			</row>
-                    			</div>
-                                <div class="col-lg-12">
-                                        <div class="row">
-                                        	Total Functional Point: ${fp}<br>
-                                       		Total Effort : ${effort}<br>
-                                       		Total Cost: ${totalCost}
-		                                </div>
                      </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row" id="nfr">
+                <div class="col-lg-10">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            Functional Point
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                   Total Functional Point: <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${fp}" />
+                                   
+                                </div>
+                                 <div class="col-lg-6">
+	                                <strong>Final functional point = UFP * CAF</strong><br>
+									<i>where, &nbsp &nbsp&nbsp UFP: Unadjusted function point<br>
+									&nbsp &nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp CAF: Complexity adjustment factor </i>
+								</div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- /.row -->
+            <div class="row" id="nfr">
+                <div class="col-lg-10">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            Effort
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                   Total Effort : <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${effort}" />
+                                </div>
+                                <div class="col-lg-6">
+                               	<strong> Effort = Total_Functional_Point(FP)/Productivity</strong><br>
+                               	<i> Assumption: productivity = 10</i>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- /.row -->
+            <div class="row" id="nfr">
+                <div class="col-lg-10">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            Cost
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                   Total Cost : $ <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${totalCost}" />
+                                 </div>
+                                 <div class="col-lg-6">
+                               	<strong> Total cost = Effort * average_cost_per_fp</strong><br>
+                               	<i> Assumption: average_cost_per_fp = 1000</i>
+                                </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
