@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <b>S/W Quality</b>Tool
+    <b>S/W Cost Estimation</b><br>Tool
   </div>
   <div class="login-box-body">
     <p class="login-box-msg"><strong>Sign In</strong></p>

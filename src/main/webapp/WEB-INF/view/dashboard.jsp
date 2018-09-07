@@ -144,11 +144,12 @@
                                             	<c:forEach items="${projects}" var="project">
                                             		<tr>
 	                                                    <td width="10%">${project.id }</td>
-	                                                    <td width="60%"><strong>Name: </strong>${project.name} <br> <strong>Description: </strong> ${project.description}</td>
+	                                                    <td width="50%"><strong>Name: </strong>${project.name} <br> <strong>Description: </strong> ${project.description}</td>
 	                                                    <td width="10%">Running</td>
-	                                                    <td width="20%"> 
+	                                                    <td width="30%"> 
 	                                                    <a href="project/view/${project.id}" class="btn btn-info">View</a>
 	                                                    <a href="project/edit/${project.id}" class="btn btn-info">Edit</a>
+	                                                     <a href="cost-estimate/${project.id}" class="btn btn-info">Estimate Cost</a>
                                                 	</tr>
                                             	</c:forEach>
                                                

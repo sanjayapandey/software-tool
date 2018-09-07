@@ -12,7 +12,7 @@
     <!-- Uncomment and your base-package here:
          <context:component-scan
             base-package="org.springframework.samples.web"/>  -->
-		 <context:component-scan base-package="com.und.softwartool"/>
+		 <context:component-scan base-package="com.und.softwaretool"/>
 
     <mvc:annotation-driven />
 
@@ -51,7 +51,7 @@
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.und.softwartool" />
+		<property name="packagesToScan" value="com.und.softwaretool" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
@@ -69,7 +69,7 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
-	<jpa:repositories base-package="com.und.softwartool"
+	<jpa:repositories base-package="com.und.softwaretool"
 		entity-manager-factory-ref="entityManagerFactory"
 		transaction-manager-ref="transactionManager" />
 </beans>

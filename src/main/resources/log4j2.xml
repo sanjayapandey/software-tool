@@ -19,11 +19,7 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="com.und.softwartool" level="DEBUG" additivity="false">
-			<AppenderRef ref="Console" />
-			<AppenderRef ref="RollingFileAppender" />
-		</Logger>
-		<Logger name="org.amlfilter" level="DEBUG" additivity="false">
+		<Logger name="com.und.softwaretool" level="DEBUG" additivity="false">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFileAppender" />
 		</Logger>

@@ -4,7 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
-<%@ page import="com.und.softwartool.service.RelationOfRequirementService" %>
+<%@ page import="com.und.softwaretool.service.RelationOfRequirementService" %>
 <!DOCTYPE html>
 <html>
 <head>
